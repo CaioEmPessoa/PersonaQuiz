@@ -1,0 +1,15 @@
+{
+    "name":"Caio",
+    "Musicas": [
+        [1, "Fancy Clown"], 
+        [2, "Fazers"], 
+        [3, "Red And Gold"],  
+        [4, "Sweating  Bullets"], 
+        [5, "Tornado of Souls"]],
+
+    "Autores": [
+        [2, "Gorillaz"], 
+        [3, "Miracle Musical"],  
+        [4, "King Geedorah"], 
+        [5, "MF DOOM"]]
+}
