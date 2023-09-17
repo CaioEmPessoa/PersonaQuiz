@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Página Legal</title>
+</head>
+
+<body>
+    
+    <div class="header">
+
+        <a class="home" href="../index.html">
+        <img src="https://play-lh.googleusercontent.com/VFmAfWqcuV3aReZG8MMQdHRSdKWx85IW22f4RQ5xhR5U-o1_u03P7TVwsnTYa26Q1No">
+        <h1>Quiz Maker</h1>
+        </a>
+
+        <a class="create"  href="create_quiz.html"> faça o seu!</a>
+        
+    </div>
+
+
+    <div class="area-pergunta">
+
+        <div class="numbers" id="numbers"></div>
+        <div class="imagem-pergunta">
+            <img src="https://upload.wikimedia.org/wikipedia/pt/6/62/Nada_como_um_dia_ap%C3%B3s_o_outro_dia.jpg">
+
+            <p id="title">Titulo do quiz</p>
+        </div>
+
+        <div>
+            <p onclick="check_answr(this)" id="1" class="respostas">Resposta 1</p>
+            <p onclick="check_answr(this)" id="2" class="respostas">Resposta 2</p>
+            <p onclick="check_answr(this)" id="3" class="respostas">Resposta 3</p>
+            <p onclick="check_answr(this)" id="4" class="respostas">Resposta 4</p>
+        </div>
+
+    </div>
+
+    
+
+<script src="../js/display_quiz.js"></script>
+
+</body>
+</html>
