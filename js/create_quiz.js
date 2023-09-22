@@ -43,11 +43,16 @@ send_button.onclick = function(){
         if(data["status"] != "Quiz Criado!"){
           send_button.style.display = "inline-block"
           loading.style.display = "none"
-          return document.getElementById("error").innerHTML = data["status"]
-
-        } else {
+          document.getElementById("error").innerHTML = data["status"]
+          return
+          
+        } 
+        if (data["status"] == "Quiz Criado!") {
           console.log(data)
-          return error_label.innerHTML = "Quiz feito! Você pode acessa-lo com o código: " + data["qstn_id"]
+          document.getElementById("error").style.color = "lime"
+          error_label.innerHTML = "Quiz feito! Você pode acessa-lo com o código: " + data["qstn_id"]
+          window.location.href = "http://127.0.0.1:3000/view/quizmodel.html?id=" + data["qstn_id"]
+          return 
         }
       });
     })

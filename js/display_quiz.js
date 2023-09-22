@@ -48,29 +48,48 @@ if (user_progress==undefined) {
 }
 console.log(user_progress)
 
+
+let answers_div = document.getElementById("perguntas")
+
 // display data
-const refresh = function(){
-        if (user_progress["qstn_number"] == data["qstn_count"]+1){
-            document.getElementById("title").innerHTML = "acabo.<br>Pontuação: " + user_progress["right"]
+let load_qstn = function(){
+    
+    if (user_progress["qstn_number"] == data["qstn_count"]+1){
+        // hide the answers
+        console.log(answers_div)
+        answers_div.style.display = "none"
 
-        } else {
-        document.getElementById("title").innerHTML = data["Question " + user_progress["qstn_number"]]["question"]
+        document.getElementById("title").innerHTML = "Parabens! <br> Você acertou " + user_progress["right"] + " de " + data["qstn_count"] + " perguntas!"
+            
 
-        document.getElementById("1").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][0]
-        document.getElementById("2").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][1]
-        document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
-        document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
+    } else {
+    document.getElementById("title").innerHTML = data["Question " + user_progress["qstn_number"]]["question"]
+
+    document.getElementById("1").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][0]
+    document.getElementById("2").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][1]
+    document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
+    document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
     }
 }
 
-const check_answr = function(answer){
+let check_answr = function(answer){
+    let button_pressed = document.getElementById(answer.id)
+    let given_answer = String(answer.innerHTML)
+    let right_answer = String(data["Question " + user_progress["qstn_number"]]["answer"])
+
     console.log("resposta enviada")
-    console.log(answer.innerHTML)
-    console.log(data["Question 1"]["answer"])
+    console.log(given_answer)
+    console.log(right_answer)
+    
+    answers_div.style.transitionProperty = "background-color"
+    answers_div.style.transitionDuration = "1s"
     
     // caso a resposta esteja correta...
-    if (answer.innerHTML == data["Question 1"]["answer"]){
+
+    if (given_answer == right_answer){
         console.log("acerto!")
+        
+        button_pressed.style.backgroundColor = "lime"
         
         // adds a point to the right questions
         user_progress["right"] = user_progress["right"] += 1
@@ -81,15 +100,19 @@ const check_answr = function(answer){
     else {
         // adds a point to the wrong questions
         user_progress["wrong"] = user_progress["wrong"] += 1
+        
+        button_pressed.style.backgroundColor = "red"
+        
         console.log("errou!")
     }
 
     user_progress["qstn_number"] += 1
-    refresh()
+    setTimeout(() => { load_qstn(); button_pressed.style.backgroundColor = "#a7a7a7"; }, 1000);
+    
     console.log(user_progress)
 }
 
-refresh()
+load_qstn()
 // END Quiz Generation
 
 
