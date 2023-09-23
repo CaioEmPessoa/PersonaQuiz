@@ -206,7 +206,7 @@ class SteamMaker():
             id_list.append(str(game["appid"]))
 
         # make a request abt all the prices of the games
-        games_price_dict = json.loads(self.steam.apps.get_app_details(",".join(id_list), "price_overview"))
+        games_price_dict = self.steam.apps.get_app_details(",".join(id_list), "price_overview")
 
         # for each game
         for game in self.games:

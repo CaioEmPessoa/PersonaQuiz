@@ -10,7 +10,7 @@ body{
     border-radius: 30px;
     border: solid black;
     color:white;
-    background-color: #c8100a;
+    background-color: #66c0f4;
     display: inline-block;
     width: 100%;
     height: auto;
@@ -165,7 +165,6 @@ body{
 .area-pergunta{
     border-radius: 20px;
     border:solid black 1px;
-
 }
 
 
@@ -210,9 +209,26 @@ img{
     text-indent: 15px;
 }
 
-.respostas:hover{
+.perguntas p:hover{
     cursor: pointer;
     background-color: #405c9c;
+} 
+
+.wrong_answr{
+    transition-property: "background-color";
+    transition-duration: 1s;
+    background-color: red!important;
+}
+
+.right_answr{
+    transition-property: "background-color";
+    transition-duration: 1s;
+    background-color: lime!important;
+}
+
+.reset_answr{
+    transition-property: none;
+    background-color: #a7a7a7;
 }
 
 .inline{

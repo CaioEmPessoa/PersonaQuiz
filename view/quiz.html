@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    
     <div class="header">
 
         <a class="home" href="../index.html">
@@ -21,28 +22,28 @@
         
     </div>
 
-    <div class="inicial">
-        <div class="username">
-            <p id="error", style="color:red"></p>
-            <p>Coloque aqui o código do link:</p>
 
-            <input type="text", id="quiz-id", style="width: 70%;">
+    <div class="area-pergunta">
+
+        <div class="numbers" id="numbers"></div>
+        <div class="imagem-pergunta">
+            <!--img src="https://upload.wikimedia.org/wikipedia/pt/6/62/Nada_como_um_dia_ap%C3%B3s_o_outro_dia.jpg"-->
+            
+            <p id="title">Titulo do quiz</p>
         </div>
 
-        <button id="entrar-criado" class="enviar">Entrar</button>
-        
-        <div class="quiz">
-            <p id="teste-json"> </p>
+        <div class="perguntas" id="perguntas">
+            <p onclick="check_answr(this)" id="1" class="respostas hover">Resposta 1</p>
+            <p onclick="check_answr(this)" id="2" class="respostas hover">Resposta 2</p>
+            <p onclick="check_answr(this)" id="3" class="respostas hover">Resposta 3</p>
+            <p onclick="check_answr(this)" id="4" class="respostas hover">Resposta 4</p>
         </div>
 
-        <br>
-        <br>
-        <br>
-        
     </div>
 
+    
 
-<script type="module" src="../js/read_quiz.js "></script>
+<script src="../js/display_quiz.js"></script>
 
 </body>
 </html>

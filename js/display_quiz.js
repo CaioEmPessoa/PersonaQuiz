@@ -9,7 +9,7 @@ if (data==undefined) {
     const urlParams = new URLSearchParams(queryString);
     const quiz_id = urlParams.get('id')
     
-    window.location.href = "/view/quiz.html?id=" + quiz_id
+    window.location.href = "/view/read_quiz.html?id=" + quiz_id
 }
 
 data = JSON.parse(data)
@@ -22,18 +22,19 @@ const qstn_numb = Array.from({length: data["qstn_count"]}, (_, i) => i + 1)
 for(let x of qstn_numb){
     if (x <= 5){
         const para = document.createElement("p");
-        const node = document.createTextNode(x);
-        para.appendChild(node);
+        const text = document.createTextNode(x);
+        para.setAttribute("id", "num-box-"+x)
+        para.appendChild(text);
         
-        const element = document.getElementById("numbers");
-        element.appendChild(para);
+        const numbers_div = document.getElementById("numbers");
+        numbers_div.appendChild(para);
     } else {
         const para = document.createElement("p");
-        const node = document.createTextNode("...");
-        para.appendChild(node);
+        const text = document.createTextNode("...");
+        para.appendChild(text);
         
-        const element = document.getElementById("numbers");
-        element.appendChild(para);
+        const numbers_div = document.getElementById("numbers");
+        numbers_div.appendChild(para);
         break
     }
 }
@@ -63,33 +64,31 @@ let load_qstn = function(){
             
 
     } else {
-    document.getElementById("title").innerHTML = data["Question " + user_progress["qstn_number"]]["question"]
+        document.getElementById("title").innerHTML = data["Question " + user_progress["qstn_number"]]["question"]
 
-    document.getElementById("1").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][0]
-    document.getElementById("2").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][1]
-    document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
-    document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
+        document.getElementById("1").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][0]
+        document.getElementById("2").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][1]
+        document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
+        document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
     }
 }
 
 let check_answr = function(answer){
-    let button_pressed = document.getElementById(answer.id)
     let given_answer = String(answer.innerHTML)
+    let button_pressed = document.getElementById(answer.id)
+    let num_box = document.getElementById("num-box-"+user_progress["qstn_number"])
     let right_answer = String(data["Question " + user_progress["qstn_number"]]["answer"])
-
+    
     console.log("resposta enviada")
     console.log(given_answer)
     console.log(right_answer)
     
-    answers_div.style.transitionProperty = "background-color"
-    answers_div.style.transitionDuration = "1s"
-    
+    button_pressed.classList.remove("reset_answr")
     // caso a resposta esteja correta...
-
     if (given_answer == right_answer){
-        console.log("acerto!")
         
-        button_pressed.style.backgroundColor = "lime"
+        button_pressed.classList.add("right_answr")
+        num_box.classList.add("right_answr")
         
         // adds a point to the right questions
         user_progress["right"] = user_progress["right"] += 1
@@ -98,16 +97,25 @@ let check_answr = function(answer){
     
     // caso a resposta esteja errada...
     else {
+        button_pressed.classList.add("wrong_answr")
+        num_box.classList.add("wrong_answr")
+        
         // adds a point to the wrong questions
         user_progress["wrong"] = user_progress["wrong"] += 1
         
-        button_pressed.style.backgroundColor = "red"
-        
-        console.log("errou!")
     }
 
     user_progress["qstn_number"] += 1
-    setTimeout(() => { load_qstn(); button_pressed.style.backgroundColor = "#a7a7a7"; }, 1000);
+    // resets and prepares the quiz to the next question
+    setTimeout(() => {
+
+        button_pressed.classList.remove("right_answr")
+        button_pressed.classList.remove("wrong_answr")
+        button_pressed.classList.add("reset_answr")
+
+
+        load_qstn()
+    }, 1000);
     
     console.log(user_progress)
 }

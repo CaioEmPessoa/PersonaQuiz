@@ -6,7 +6,7 @@ console.log(quiz_id)
 
 // Get quiz already made <--------------------------------<
 
-const request = function(request_id){
+const request = function(request_id="1"){
     fetch('http://127.0.0.1:5000/steam_app/test')
     .then( response => {
     fetch("http://127.0.0.1:5000/steam_app/open_created/" + request_id).then(response => response.json()).then(
@@ -22,7 +22,7 @@ const request = function(request_id){
             console.log(data)
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
-            const quiz_path = "/view/quizmodel.html?id=" + request_id
+            const quiz_path = "/view/quiz.html?id=" + request_id
             return window.location.href = quiz_path
         }
     });
