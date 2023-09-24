@@ -13,31 +13,7 @@ if (data==undefined) {
 }
 
 data = JSON.parse(data)
-
 localStorage.removeItem('quiz_data');
-
-
-const qstn_numb = Array.from({length: data["qstn_count"]}, (_, i) => i + 1)
-
-for(let x of qstn_numb){
-    if (x <= 5){
-        const para = document.createElement("p");
-        const text = document.createTextNode(x);
-        para.setAttribute("id", "num-box-"+x)
-        para.appendChild(text);
-        
-        const numbers_div = document.getElementById("numbers");
-        numbers_div.appendChild(para);
-    } else {
-        const para = document.createElement("p");
-        const text = document.createTextNode("...");
-        para.appendChild(text);
-        
-        const numbers_div = document.getElementById("numbers");
-        numbers_div.appendChild(para);
-        break
-    }
-}
 
 if (user_progress==undefined) {
     console.log("Sem Progresso.")
@@ -48,6 +24,60 @@ if (user_progress==undefined) {
     }
 }
 console.log(user_progress)
+
+// creating the numbers paragraphs
+// creating the numbers array
+const qstn_numb = Array.from({length: data["qstn_count"]}, (_, i) => i + 1)
+
+// loop trouht the numbers array
+for(let value of qstn_numb){
+    console.log(value)
+    console.log(user_progress["qstn_number"])
+
+    const para = document.createElement("p")
+    const text = document.createTextNode(value)
+    para.setAttribute("id", "num-box-"+value)
+    para.appendChild(text)
+    
+    const numbers_div = document.getElementById("numbers")
+    numbers_div.appendChild(para)
+    
+    if (value >= 6){
+        let num_box = document.getElementById("num-box-"+value)
+        num_box.style.display = "none"
+    } else if (value >= user_progress["qstn_number"]+4) {
+        const para = document.createElement("p");
+        const text = document.createTextNode("...");
+        para.setAttribute("id", "continue")
+        para.appendChild(text);
+        const numbers_div = document.getElementById("continue");
+        numbers_div.appendChild(para);
+    } 
+}
+
+const move_numbers = function() {
+    if (user_progress["qstn_number"] >= 5){
+        for(let value of qstn_numb){
+            if (value >= user_progress["qstn_number"]+1){
+                let num_box = document.getElementById("num-box-"+value)
+                num_box.style.display = "none"
+            } 
+            else if (value <= user_progress["qstn_number"]-5){
+                let num_box = document.getElementById("num-box-"+value)
+                num_box.style.display = "none"
+            } 
+            else {
+                let num_box = document.getElementById("num-box-"+value)
+                num_box.style.display = "inline-block"
+            }
+        }
+    }
+
+    if (user_progress["qstn_number"] == data["qstn_count"]){
+        let continue_p = document.getElementById("continue")
+        continue_p.style.display = "none"
+    }
+}
 
 
 let answers_div = document.getElementById("perguntas")
@@ -71,6 +101,8 @@ let load_qstn = function(){
         document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
         document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
     }
+
+    move_numbers()
 }
 
 let check_answr = function(answer){

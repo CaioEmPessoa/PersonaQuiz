@@ -169,7 +169,6 @@ body{
     border:solid black 1px;
 }
 
-
 .numbers{
     background-color: #031331;
     color:white;
@@ -179,6 +178,7 @@ body{
     padding-right: 20px;
     margin:20px;
 }
+
 
 .numbers p{
     display:inline-block;

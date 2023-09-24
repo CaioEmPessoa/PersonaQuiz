@@ -34,6 +34,10 @@ send_button.onclick = function(){
 
   send_button.style.display = "none"
   loading.style.display = "inline-block"
+
+  if (qstn_ammount==0){
+    qstn_ammount = 1
+  }
   
   fetch('http://127.0.0.1:5000/steam_app/test')
   .then( response => {

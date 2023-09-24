@@ -86,12 +86,13 @@ class SteamMaker():
     def make_qstn(self):
 
         # Lista de todas funções que fazem as perguntas
+        '''
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
             self.qstn_friend_count, self.qstn_recent, self.qstn_money, self.qstn_level, 
             self.qstn_last_2weeks, self.qstn_library]
-        
-        #questions_list = [self.qstn_last_2weeks]
+        '''
+        questions_list = [self.qstn_money]
         # A list with the itens on the list
         can_choose = list(range(len(questions_list)))
 
@@ -206,8 +207,8 @@ class SteamMaker():
             id_list.append(str(game["appid"]))
 
         # make a request abt all the prices of the games
-        games_price_dict = self.steam.apps.get_app_details(",".join(id_list), "price_overview")
-
+        games_price_dict = self.steam.apps.get_app_details(",".join(id_list), "price_overview", "BR")
+        print(games_price_dict)
         # for each game
         for game in self.games:
             
