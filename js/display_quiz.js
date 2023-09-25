@@ -23,16 +23,13 @@ if (user_progress==undefined) {
         "qstn_number":1,
     }
 }
-console.log(user_progress)
 
 // creating the numbers paragraphs
 // creating the numbers array
-const qstn_numb = Array.from({length: data["qstn_count"]}, (_, i) => i + 1)
+const qstn_numb_array = Array.from({length: data["qstn_count"]}, (_, i) => i + 1)
 
 // loop trouht the numbers array
-for(let value of qstn_numb){
-    console.log(value)
-    console.log(user_progress["qstn_number"])
+for(let value of qstn_numb_array){
 
     const para = document.createElement("p")
     const text = document.createTextNode(value)
@@ -56,13 +53,15 @@ for(let value of qstn_numb){
 }
 
 const move_numbers = function() {
-    if (user_progress["qstn_number"] >= 5){
-        for(let value of qstn_numb){
-            if (value >= user_progress["qstn_number"]+1){
+    var qstn_number = user_progress["qstn_number"]
+
+    if (qstn_number >= 5){
+        for(let value of qstn_numb_array){
+            if (value >= qstn_number+1){
                 let num_box = document.getElementById("num-box-"+value)
                 num_box.style.display = "none"
             } 
-            else if (value <= user_progress["qstn_number"]-5){
+            else if (value <= qstn_number-5){
                 let num_box = document.getElementById("num-box-"+value)
                 num_box.style.display = "none"
             } 
@@ -72,48 +71,49 @@ const move_numbers = function() {
             }
         }
     }
-
-    if (user_progress["qstn_number"] == data["qstn_count"]){
-        let continue_p = document.getElementById("continue")
-        continue_p.style.display = "none"
-    }
 }
 
 
 let answers_div = document.getElementById("perguntas")
 
 // display data
-let load_qstn = function(){
-    
-    if (user_progress["qstn_number"] == data["qstn_count"]+1){
+const refresh_qstn = function(){
+    var qstn_number = user_progress["qstn_number"]
+    var qstn_count = data["qstn_count"]
+
+    if (qstn_number == qstn_count+1){
         // hide the answers
         console.log(answers_div)
         answers_div.style.display = "none"
 
-        document.getElementById("title").innerHTML = "Parabens! <br> Você acertou " + user_progress["right"] + " de " + data["qstn_count"] + " perguntas!"
+        document.getElementById("title").innerHTML = "Parabens! <br> Você acertou " + user_progress["right"] + " de " + qstn_count + " perguntas!"
             
 
     } else {
-        document.getElementById("title").innerHTML = data["Question " + user_progress["qstn_number"]]["question"]
+        document.getElementById("title").innerHTML = data["Question " + qstn_number]["question"]
 
-        document.getElementById("1").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][0]
-        document.getElementById("2").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][1]
-        document.getElementById("3").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][2]
-        document.getElementById("4").innerHTML = data["Question " + user_progress["qstn_number"]]["options"][3]
+        document.getElementById("1").innerHTML = data["Question " + qstn_number]["options"][0]
+        document.getElementById("2").innerHTML = data["Question " + qstn_number]["options"][1]
+        document.getElementById("3").innerHTML = data["Question " + qstn_number]["options"][2]
+        document.getElementById("4").innerHTML = data["Question " + qstn_number]["options"][3]
     }
-
-    move_numbers()
+    console.log(qstn_number)
+    if (qstn_number != qstn_count){
+        move_numbers()
+    } else  {
+        let continue_p = document.getElementById("continue")
+        let last_numb = document.getElementById("num-box-" + String(qstn_count))
+        continue_p.style.display = "none"
+        last_numb.style.display = "inline-block"
+    }
 }
+refresh_qstn()
 
-let check_answr = function(answer){
+const check_answr = function(answer){
     let given_answer = String(answer.innerHTML)
     let button_pressed = document.getElementById(answer.id)
-    let num_box = document.getElementById("num-box-"+user_progress["qstn_number"])
+    let num_box = document.getElementById("num-box-"+ user_progress["qstn_number"])
     let right_answer = String(data["Question " + user_progress["qstn_number"]]["answer"])
-    
-    console.log("resposta enviada")
-    console.log(given_answer)
-    console.log(right_answer)
     
     button_pressed.classList.remove("reset_answr")
     // caso a resposta esteja correta...
@@ -146,13 +146,12 @@ let check_answr = function(answer){
         button_pressed.classList.add("reset_answr")
 
 
-        load_qstn()
+        refresh_qstn()
     }, 1000);
     
     console.log(user_progress)
 }
 
-load_qstn()
 // END Quiz Generation
 
 

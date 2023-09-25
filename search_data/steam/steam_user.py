@@ -86,13 +86,12 @@ class SteamMaker():
     def make_qstn(self):
 
         # Lista de todas funções que fazem as perguntas
-        '''
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
             self.qstn_friend_count, self.qstn_recent, self.qstn_money, self.qstn_level, 
             self.qstn_last_2weeks, self.qstn_library]
-        '''
-        questions_list = [self.qstn_money]
+
+        # questions_list = [self.qstn_money]
         # A list with the itens on the list
         can_choose = list(range(len(questions_list)))
 
@@ -308,7 +307,7 @@ class SteamMaker():
         return question, year_optn, year_optn[0]
         
     def qstn_old_friend(self):
-        question = f"Quem é o amigo antigo de {self.user['player']['personaname']}?"
+        question = f"Quem é o amigo mais antigo de {self.user['player']['personaname']}?"
         print("pergunta: " + question)
 
         oldest_friends = []
