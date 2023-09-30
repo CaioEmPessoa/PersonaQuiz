@@ -390,5 +390,5 @@ def header_apply(response):
 if __name__ == "__main__":
     Start = SteamMaker()
     app.add_url_rule
-    app.run(debug=True)
+    app.run(host="0.0.0.0" port=5000)
 
