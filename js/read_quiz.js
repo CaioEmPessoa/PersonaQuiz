@@ -7,9 +7,9 @@ console.log(quiz_id)
 // Get quiz already made <--------------------------------<
 
 const request = function(request_id="1"){
-    fetch('http://127.0.0.1:5000/steam_app/test')
+    fetch('https://steam-quiz-api.onrender.com/steam_app/test')
     .then( response => {
-    fetch("http://127.0.0.1:5000/steam_app/open_created/" + request_id).then(response => response.json()).then(
+    fetch("https://steam-quiz-api.onrender.com/steam_app/open_created/" + request_id).then(response => response.json()).then(
         function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Carregado!"){

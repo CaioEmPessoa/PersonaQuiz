@@ -5,4 +5,4 @@ python-steam-api==1.2.0
 python-decouple==3.8
 beautifulsoup4==4.12.2
 build==1.0.3
-gunicorn==21.2.0
+waitress==2.1.2
