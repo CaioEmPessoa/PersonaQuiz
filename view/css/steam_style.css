@@ -108,7 +108,16 @@ body{
 }
 
 .inicial a:hover {
-    background-color: #8692f8!important;
+    background-color: #8692f8;
+}
+
+.inicial .sharelink {
+    color: blue!important;
+    text-decoration: underline!important;
+}
+.inicial .sharelink:hover {
+    background-color: white;
+    font-weight: bolder;
 }
 
 /* Botões para outras páginas */

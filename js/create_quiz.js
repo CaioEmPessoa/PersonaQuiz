@@ -53,9 +53,11 @@ send_button.onclick = function(){
         } 
         if (data["status"] == "Quiz Criado!") {
           document.getElementById("error").style.color = "lime"
-          error_label.innerHTML = "Quiz feito! Você pode acessa-lo com o código: " + data["qstn_id"]
-          window.location.href = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id=" + data["qstn_id"]
-          return 
+          let sharelink = document.getElementById("sharelink")
+
+          error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"
+          sharelink.innerHTML = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"]
+          return
         }
       });
     })
