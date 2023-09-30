@@ -24,6 +24,18 @@ class SteamMaker():
 
     def user_data(self, username, ammount):
 
+        # dict reset
+        try:
+            self.qstn_dict.clear
+        except:
+            print("ok")
+            
+        self.qstn_dict = {
+            "status":"undefined",
+            "qstn_count": 0,
+            "qstn_id": "undefined",
+        }
+
         # Pesquisando por ID
         print("pesquisando por id...")
         self.user = self.steam.users.search_user(username)
@@ -53,11 +65,6 @@ class SteamMaker():
         self.friends = self.steam.users.get_user_friends_list(self.id)["friends"]
         self.games = self.steam.users.get_owned_games(self.id)["games"]
         self.ammount = ammount
-        self.qstn_dict = {
-            "status":"undefined",
-            "qstn_count": 0,
-            "qstn_id": "undefined",
-        }
 
         # >--------------------------------------- END
         return self.make_qstn()

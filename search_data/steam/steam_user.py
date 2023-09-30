@@ -25,7 +25,11 @@ class SteamMaker():
     def user_data(self, username, ammount):
 
         # dict reset
-        self.qstn_dict.clear
+        try:
+            self.qstn_dict.clear
+        except:
+            print("ok")
+            
         self.qstn_dict = {
             "status":"undefined",
             "qstn_count": 0,
