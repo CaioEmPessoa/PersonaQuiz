@@ -88,10 +88,10 @@ class SteamMaker():
         # Lista de todas funções que fazem as perguntas
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
-            self.qstn_friend_count, self.qstn_recent, self.qstn_money, self.qstn_level, 
-            self.qstn_last_2weeks, self.qstn_library]
+            self.qstn_friend_count, self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
+            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]
 
-        # questions_list = [self.qstn_money]
+        # questions_list = [self.qstn_spent_money]
         # A list with the itens on the list
         can_choose = list(range(len(questions_list)))
 
@@ -190,7 +190,7 @@ class SteamMaker():
     
         # the correct answer is the smallest number on "rtime_last_played", under the "games" list
 
-    def qstn_money(self):
+    def qstn_games_by_money(self):
         question = f"Qual o jogo mais caro da biblioteca de {self.user['player']['personaname']}?"
         print("pergunta: " + question)
 
@@ -233,6 +233,60 @@ class SteamMaker():
             games_name.append(game_name[1])
 
         return question, games_name, sort_by_money[0][1]
+
+    def qstn_spent_money(self):
+        question = f"Quanto {self.user['player']['personaname']} já gastou em sua biblioteca da steam? (sem contar descontos)"
+        print("pergunta: " + question)
+
+        id_list = []
+        spent_money = []
+
+        # get a list of all games id's
+        for game in self.games:
+            id_list.append(str(game["appid"]))
+
+        # make a request abt all the prices of the games
+        games_price_dict = self.steam.apps.get_app_details(",".join(id_list), "BR", "price_overview")
+        # for each game
+        for game in self.games:
+            
+            # It tryies to found the initial price of the game, in case it has somed discount
+            try:
+                game_price = games_price_dict[str(game["appid"])]["data"]["price_overview"]["initial_formatted"]
+                
+                # If the game isn't in promotion, it gets only the final price of it
+                if game_price == 0 or game_price == "":
+                    game_price = games_price_dict[str(game["appid"])]["data"]["price_overview"]["final_formatted"]
+                    
+            except:
+                # If the game isn't on the dict, it is "free"
+                game_price = "R$ 0"
+
+            if game_price == "Free":
+                game_price = "R$ 0"
+
+            # The game price comes like "R$ xx,xx" so I had to convert to "xx.xx"
+            spent_money.append([float(game_price[3:].replace(",", ".")), game["name"]])
+
+        sum_total = 0
+        for item in spent_money: 
+            sum_total = item[0] + sum_total
+
+        # arredonda o valor :)
+        sum_total = round(sum_total)
+        spent_range = list(range(round(sum_total/1.5), round(sum_total*1.5)))
+
+        spent_optn = []
+        spent_range.remove(sum_total)
+        spent_optn.append(sum_total)
+        for r in range(3): 
+            sum_total = random.choice(spent_range)
+            spent_range.remove(sum_total)
+            spent_optn.append(sum_total)
+
+        formatted_spent_optn = ["R$ " + str(item) for item in spent_optn]
+        
+        return question, formatted_spent_optn, formatted_spent_optn[0]
 
     def qstn_achievements(self): # not working
         question = f"Qual o jogo com mais conquistas de {self.user['player']['personaname']}?"
