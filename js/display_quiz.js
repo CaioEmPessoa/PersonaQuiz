@@ -9,7 +9,7 @@ if (data==undefined) {
     const urlParams = new URLSearchParams(queryString);
     const quiz_id = urlParams.get('id')
     
-    window.location.href = "/view/read_quiz.html?id=" + quiz_id
+    window.location.href = "/UserQuizMaker/view/read_quiz.html?id=" + quiz_id
 }
 
 data = JSON.parse(data)
@@ -55,7 +55,7 @@ for(let value of qstn_numb_array){
 const move_numbers = function() {
     var qstn_number = user_progress["qstn_number"]
 
-    if (qstn_number >= 5){
+    if (qstn_number >= 6){
         for(let value of qstn_numb_array){
             if (value >= qstn_number+1){
                 let num_box = document.getElementById("num-box-"+value)

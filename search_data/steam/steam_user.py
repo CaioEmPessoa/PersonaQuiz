@@ -104,9 +104,6 @@ class SteamMaker():
 
             # Opens the function and gets the returned values
             question, options, answer = questions_list[choosed]()
-            print(question, options, answer)
-            print(can_choose)
-
 
             # Shuffles the options of the quiz
             random.shuffle(options)
