@@ -39,9 +39,9 @@ send_button.onclick = function(){
     qstn_ammount = 1
   }
   
-  fetch('http://127.0.0.1:5000/steam_app/test')
+  fetch('https://steam-quiz-api.onrender.com/steam_app/test')
   .then( response => {
-    fetch("http://127.0.0.1:5000/steam_app/create/" + nameEntry + "/" + qstn_ammount).then(response => response.json()).then(
+    fetch("https://steam-quiz-api.onrender.com/steam_app/create/" + nameEntry + "/" + qstn_ammount).then(response => response.json()).then(
       function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Criado!"){
