@@ -235,7 +235,7 @@ class SteamMaker():
         return question, games_name, sort_by_money[0][1]
 
     def qstn_spent_money(self):
-        question = f"Quanto {self.user['player']['personaname']} já gastou em sua biblioteca da steam? (sem contar descontos)"
+        question = f"Quanto custa a biblioteca de {self.user['player']['personaname']} sem contar descontos?"
         print("pergunta: " + question)
 
         id_list = []
