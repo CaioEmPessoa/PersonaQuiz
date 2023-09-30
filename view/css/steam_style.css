@@ -58,9 +58,17 @@ body{
 }
 
 
-@media (max-width: 420px) {
+@media (max-width: 470px) {
     .header .home h1{
         display: none;
+    }
+    .header .create {
+        margin:25px;
+    }
+
+    .header .home {
+        margin: 4px;
+        border: none;
     }
 }
 
