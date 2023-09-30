@@ -24,6 +24,14 @@ class SteamMaker():
 
     def user_data(self, username, ammount):
 
+        # dict reset
+        self.qstn_dict.clear
+        self.qstn_dict = {
+            "status":"undefined",
+            "qstn_count": 0,
+            "qstn_id": "undefined",
+        }
+
         # Pesquisando por ID
         print("pesquisando por id...")
         self.user = self.steam.users.search_user(username)
@@ -53,11 +61,6 @@ class SteamMaker():
         self.friends = self.steam.users.get_user_friends_list(self.id)["friends"]
         self.games = self.steam.users.get_owned_games(self.id)["games"]
         self.ammount = ammount
-        self.qstn_dict = {
-            "status":"undefined",
-            "qstn_count": 0,
-            "qstn_id": "undefined",
-        }
 
         # >--------------------------------------- END
         return self.make_qstn()
@@ -433,6 +436,7 @@ def open_created(user_id):
 
 @app.after_request
 def header_apply(response):
+
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Credentials"] ="True"
     return response
