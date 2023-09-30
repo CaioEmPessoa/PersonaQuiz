@@ -19,7 +19,7 @@ class SteamMaker():
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
         self.steam = Steam(KEY)
-        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "\\..\\user_data"
+        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/../user_data"
         
 
     def user_data(self, username, ammount):
@@ -207,7 +207,6 @@ class SteamMaker():
 
         # make a request abt all the prices of the games
         games_price_dict = self.steam.apps.get_app_details(",".join(id_list), "BR", "price_overview")
-        print(games_price_dict)
         # for each game
         for game in self.games:
             
