@@ -3,5 +3,5 @@ python-decouple==3.8
 python-steam-api==1.1.1
 python-decouple==3.8
 beautifulsoup4==4.12.2
-
+gunicorn==21.2.0
 
