@@ -1,0 +1,85 @@
+{
+    "status": "Perguntas Salvas!",
+    "qstn_count": 8,
+    "qstn_id": "jtq0z4",
+    "Question 1": {
+        "question": "Qual o jogo mais jogado de CaioEmPessoa?",
+        "options": [
+            "Dead by Daylight",
+            "Counter-Strike 2",
+            "Tom Clancy's Rainbow Six Siege",
+            "The Witcher 3: Wild Hunt"
+        ],
+        "answer": "Dead by Daylight"
+    },
+    "Question 2": {
+        "question": "Qual o jogo mais jogado nas \u00faltimas duas semanas por CaioEmPessoa?",
+        "options": [
+            "The Flame in the Flood",
+            "Danganronpa 2: Goodbye Despair",
+            "Wallpaper Engine",
+            "NEEDY STREAMER OVERLOAD"
+        ],
+        "answer": "Danganronpa 2: Goodbye Despair"
+    },
+    "Question 3": {
+        "question": "Qual o jogo mais caro da biblioteca de CaioEmPessoa?",
+        "options": [
+            "Metro Exodus Enhanced Edition",
+            "Days Gone",
+            "We Happy Few",
+            "Metro Exodus"
+        ],
+        "answer": "Days Gone"
+    },
+    "Question 4": {
+        "question": "Quem \u00e9 o amigo mais antigo de CaioEmPessoa?",
+        "options": [
+            "Trinity",
+            "Eu Sonego Imposto",
+            "Leandro.",
+            "gamermae"
+        ],
+        "answer": "gamermae"
+    },
+    "Question 5": {
+        "question": "Quantos amigos CaioEmPessoa tem?",
+        "options": [
+            20,
+            21,
+            24,
+            23
+        ],
+        "answer": 24
+    },
+    "Question 6": {
+        "question": "Quando CaioEmPessoa criou sua conta?",
+        "options": [
+            2017,
+            2016,
+            2018,
+            2015
+        ],
+        "answer": 2017
+    },
+    "Question 7": {
+        "question": "Qual foi o \u00faltimo jogo jogado por CaioEmPessoa?",
+        "options": [
+            "The Flame in the Flood",
+            "Spell Disk Demo",
+            "Holstin Demo",
+            "The Lost Mythologies"
+        ],
+        "answer": "Holstin Demo"
+    },
+    "Question 8": {
+        "question": "Qual level de CaioEmPessoa?",
+        "options": [
+            23,
+            22,
+            30,
+            32
+        ],
+        "answer": 22
+    }
+}

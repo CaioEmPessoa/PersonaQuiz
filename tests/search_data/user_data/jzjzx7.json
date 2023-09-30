@@ -1,0 +1,15 @@
+{
+    "status": "Perguntas Salvas!",
+    "qstn_count": 1,
+    "qstn_id": "jzjzx7",
+    "Question 1": {
+        "question": "Quanto CaioEmPessoa j\u00e1 gastou em sua biblioteca da steam? (sem contar descontos)",
+        "options": [
+            5585,
+            4663,
+            6455,
+            4526
+        ],
+        "answer": 5585
+    }
+}

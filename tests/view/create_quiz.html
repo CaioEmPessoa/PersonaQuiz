@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/steam_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Página Legal</title>
+</head>
+
+<body>
+    <div class="header">
+
+        <a class="home" href="../index.html">
+        <img src="img/steam_logo.png">
+        <h1>Quiz Maker</h1>
+        </a>
+
+        <a class="create"  href="create_quiz.html"> faça o seu!</a>
+        
+    </div>
+
+    <div class="inicial">
+        <div class="username">
+            <p id="error", style="color:red"></p>
+            <p>Cole aqui o link de seu perfil:</p>
+            <input type="text", id="usernameEntry", style="width: 70%;">
+        </div>
+        
+        <div class="questions">
+            <p>Quantas Perguntas?</p>
+            <input class="inline" id="questionSlider" type="range" min="0" max="10" value="5">
+            <p class="inline" id="sliderOutput">demo</p>
+        </div>
+        
+        <img id="loading" class="loading" src="/img/loading.gif">
+        <button id="enviar" class="enviar">Enviar Informações</button>
+        
+        <div class="pergunta">
+            <h3 id="pergunta"></h3>
+            <p id="options"></p>
+            <p id="answer"></p>
+        </div>
+        <hr style="border: solid black 1px; margin-top: 30px;">
+        <div class="ajuda">
+            <p style="font-size: 18px; text-align: left;">aviso: seu perfil precisa ter os seguintes requerimentos:
+                <br> -gasto mais de 5 doláres na steam* 
+                <br> -ter mais de 4 jogos**.
+                <br> -ter seus dados públicos***</p>
+            <a href="#" id="info-btn">Por que?</a>
+            <div class="ajuda-oculta" id="ajuda-oculta">
+                <p>&emsp;*Os dados do seu perfil só se tornam públicos após ter gasto mais de 5 dólares (aproximadamente 25 reais) para evitar contas criadas para spam e coisas do genero. 
+                    <br> &emsp;Saiba mais no site oficial: <a target="_blank" style="margin:0px; padding:0px" href="https://help.steampowered.com/pt-br/faqs/view/71D3-35C2-AD96-AA3A">aqui</a>
+                    <br>
+                    &emsp; **Não é algo estritamente necessário ter mais de 4 jogos na biblioteca, porém as perguntas do quiz tem 4 opções, e existem perguntas que ignoram jogos que são gratuitos, como "qual jogo mais caro da biblioteca", logo seria necessário ter 4> jogos pagos para o quiz funcionar 100%.
+                    <br> &emsp;Mas talvez mesmo assim ele funcione sem problemas, só não garanto que a experiencia seria boa.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+<script type="module" src="../js/create_quiz.js"></script>
+
+</body>
+</html>
