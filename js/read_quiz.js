@@ -19,7 +19,6 @@ const request = function(request_id="1"){
         } 
         else {
             // salva as informações coletadas do quiz do servidor
-            console.log(data)
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
             const quiz_path = "/UserQuizMaker/view/quiz.html?id=" + request_id

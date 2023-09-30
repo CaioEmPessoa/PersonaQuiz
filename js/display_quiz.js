@@ -42,7 +42,7 @@ for(let value of qstn_numb_array){
     if (value >= 6){
         let num_box = document.getElementById("num-box-"+value)
         num_box.style.display = "none"
-    } else if (value >= user_progress["qstn_number"]+4) {
+    } else if (value >= user_progress["qstn_number"]+5) {
         const para = document.createElement("p");
         const text = document.createTextNode("...");
         para.setAttribute("id", "continue")
@@ -83,7 +83,6 @@ const refresh_qstn = function(){
 
     if (qstn_number == qstn_count+1){
         // hide the answers
-        console.log(answers_div)
         answers_div.style.display = "none"
 
         document.getElementById("title").innerHTML = "Parabens! <br> Você acertou " + user_progress["right"] + " de " + qstn_count + " perguntas!"
@@ -97,8 +96,9 @@ const refresh_qstn = function(){
         document.getElementById("3").innerHTML = data["Question " + qstn_number]["options"][2]
         document.getElementById("4").innerHTML = data["Question " + qstn_number]["options"][3]
     }
-    console.log(qstn_number)
-    if (qstn_number != qstn_count){
+    if (qstn_number <= qstn_count){
+        console.log(qstn_number)
+        console.log(qstn_count)
         move_numbers()
     } else  {
         let continue_p = document.getElementById("continue")
@@ -149,7 +149,6 @@ const check_answr = function(answer){
         refresh_qstn()
     }, 1000);
     
-    console.log(user_progress)
 }
 
 // END Quiz Generation
