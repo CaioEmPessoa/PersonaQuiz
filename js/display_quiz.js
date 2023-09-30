@@ -42,7 +42,7 @@ for(let value of qstn_numb_array){
     if (value >= 6){
         let num_box = document.getElementById("num-box-"+value)
         num_box.style.display = "none"
-    } else if (value >= user_progress["qstn_number"]+5) {
+    } else {
         const para = document.createElement("p");
         const text = document.createTextNode("...");
         para.setAttribute("id", "continue")
