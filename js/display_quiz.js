@@ -3,7 +3,6 @@
 // read data
 var data = localStorage['quiz_data'];
 if (data==undefined) {
-    console.log("Sem data.")
     
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -16,7 +15,6 @@ data = JSON.parse(data)
 localStorage.removeItem('quiz_data');
 
 if (user_progress==undefined) {
-    console.log("Sem Progresso.")
     var user_progress = {
         "right":0,
         "wrong":0,
@@ -39,17 +37,21 @@ for(let value of qstn_numb_array){
     const numbers_div = document.getElementById("numbers")
     numbers_div.appendChild(para)
     
+    // se o numero for maior que 6, cria o elemento com display none
     if (value >= 6){
         let num_box = document.getElementById("num-box-"+value)
         num_box.style.display = "none"
-    } else {
-        const para = document.createElement("p");
-        const text = document.createTextNode("...");
-        para.setAttribute("id", "continue")
-        para.appendChild(text);
-        const numbers_div = document.getElementById("continue");
-        numbers_div.appendChild(para);
-    } 
+    }
+}
+
+// creates 
+if (data["qstn_count"] >= 6) {
+    const para = document.createElement("p");
+    const text = document.createTextNode("...");
+    para.setAttribute("id", "continue")
+    para.appendChild(text);
+    const numbers_div = document.getElementById("continue");
+    numbers_div.appendChild(para);
 }
 
 const move_numbers = function() {
@@ -96,9 +98,7 @@ const refresh_qstn = function(){
         document.getElementById("3").innerHTML = data["Question " + qstn_number]["options"][2]
         document.getElementById("4").innerHTML = data["Question " + qstn_number]["options"][3]
     }
-    if (qstn_number <= qstn_count){
-        console.log(qstn_number)
-        console.log(qstn_count)
+    if (qstn_number <= qstn_count-1){
         move_numbers()
     } else  {
         let continue_p = document.getElementById("continue")
