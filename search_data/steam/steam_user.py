@@ -19,7 +19,7 @@ class SteamMaker():
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
         self.steam = Steam(KEY)
-        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "\..\..\user_data"
+        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "\\..\\..\\user_data"
         
 
     def user_data(self, username, ammount):
