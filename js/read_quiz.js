@@ -22,7 +22,7 @@ const request = function(request_id="1"){
             console.log(data)
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
-            const quiz_path = "/view/quiz.html?id=" + request_id
+            const quiz_path = "/UserQuizMaker/view/quiz.html?id=" + request_id
             return window.location.href = quiz_path
         }
     });
