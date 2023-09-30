@@ -57,6 +57,14 @@ body{
     background-color: #8692f8!important;
 }
 
+.aviso {
+    border-radius: 20px;
+    border:solid 4px black;
+    text-align: center;
+    background-color:white;
+    width: 97%;
+    color:red;
+}
 
 @media (max-width: 470px) {
     .header .home h1{
@@ -78,9 +86,16 @@ body{
         margin-right: 10%;
         margin-left: 10%;
     }
+
+    .aviso {
+        width: 70%;
+        margin-right: 15%;
+        margin-left: 15%;
+    }
 }
 
 /* FIM CABEÇALHO */
+
 
 /* AREA INICIAL */
 
