@@ -57,6 +57,7 @@ send_button.onclick = function(){
 
           error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"
           sharelink.innerHTML = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"]
+          sharelink.href = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"]
           
           send_button.style.display = "inline-block"
           loading.style.display = "none"
