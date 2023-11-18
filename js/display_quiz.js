@@ -133,7 +133,7 @@ const check_answr = function(answer){
         num_box.classList.add("wrong_answr")
 
         for (let i = 1; i<=4; i++) {
-            let resposta = document.getElementById(i);
+            var resposta = document.getElementById(i);
             if (resposta.innerHTML == right_answer){
                 resposta.classList.add("right_answr");
             }    
@@ -147,11 +147,13 @@ const check_answr = function(answer){
     user_progress["qstn_number"] += 1
     // resets and prepares the quiz to the next question
     setTimeout(() => {
-
-        button_pressed.classList.remove("right_answr")
-        button_pressed.classList.remove("wrong_answr")
-        button_pressed.classList.add("reset_answr")
-
+        
+        for (let i = 1; i<=4; i++) {
+            var resposta = document.getElementById(i);
+            resposta.classList.remove("right_answr")
+            resposta.classList.remove("wrong_answr")
+            resposta.classList.add("reset_answr")
+        }
 
         refresh_qstn()
     }, 1000);
