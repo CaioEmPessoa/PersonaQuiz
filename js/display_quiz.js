@@ -131,17 +131,17 @@ const check_answr = function(answer){
     else {
         button_pressed.classList.add("wrong_answr")
         num_box.classList.add("wrong_answr")
+
+        for (let i = 1; i<=4; i++) {
+            let resposta = document.getElementById(i);
+            if (resposta.innerHTML == right_answer){
+                resposta.classList.add("right_answr");
+            }    
+        }
         
         // adds a point to the wrong questions
         user_progress["wrong"] = user_progress["wrong"] += 1
         
-        for (let i = 1; i<=4; i++) {
-            let respostas = document.getElementById(i).innerHTML;
-            if (respostas == right_answer){
-                respostas.classList.add("right_answr");
-                break;
-            }    
-        }
     }
 
     user_progress["qstn_number"] += 1
