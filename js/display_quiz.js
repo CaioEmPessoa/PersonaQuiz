@@ -135,6 +135,13 @@ const check_answr = function(answer){
         // adds a point to the wrong questions
         user_progress["wrong"] = user_progress["wrong"] += 1
         
+        for (let i = 1; i<=4; i++) {
+            let respostas = document.getElementById(i).innerHTML;
+            if (respostas == right_answer){
+                respostas.classList.add("right_answr");
+                break;
+            }    
+        }
     }
 
     user_progress["qstn_number"] += 1
