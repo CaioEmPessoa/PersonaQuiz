@@ -242,7 +242,7 @@ class SteamMaker():
         return question, games_name, sort_by_money[0][1]
 
     def qstn_spent_money(self):
-        question = f"Quanto custa a biblioteca de {self.user['player']['personaname']} sem contar descontos?"
+        question = f"Quanto {self.user['player']['personaname']} já gastou em sua biblioteca da steam? (sem contar descontos)"
         print("pergunta: " + question)
 
         id_list = []
@@ -440,7 +440,6 @@ def open_created(user_id):
 
 @app.after_request
 def header_apply(response):
-
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Credentials"] ="True"
     return response
@@ -449,5 +448,5 @@ if __name__ == "__main__":
     from waitress import serve
     Start = SteamMaker()
     app.add_url_rule
-    serve(app, host="0.0.0.0", port=5000)
-
+    app.run(debug=True)
+    # serve(app, host="0.0.0.0", port=5000)

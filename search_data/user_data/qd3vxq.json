@@ -1,0 +1,55 @@
+{
+    "status": "Perguntas Salvas!",
+    "qstn_count": 5,
+    "qstn_id": "qd3vxq",
+    "Question 1": {
+        "question": "Quantos amigos CaioEmPessoa tem?",
+        "options": [
+            26,
+            22,
+            27,
+            31
+        ],
+        "answer": 27
+    },
+    "Question 2": {
+        "question": "Qual level de CaioEmPessoa?",
+        "options": [
+            17,
+            23,
+            29,
+            25
+        ],
+        "answer": 23
+    },
+    "Question 3": {
+        "question": "Qual o jogo mais jogado nas \u00faltimas duas semanas por CaioEmPessoa?",
+        "options": [
+            "Content Warning",
+            "Stardew Valley",
+            "Kandidatos Kart",
+            "Furry Love 2"
+        ],
+        "answer": "Furry Love 2"
+    },
+    "Question 4": {
+        "question": "Quando CaioEmPessoa criou sua conta?",
+        "options": [
+            2015,
+            2019,
+            2016,
+            2017
+        ],
+        "answer": 2017
+    },
+    "Question 5": {
+        "question": "Quanto CaioEmPessoa j\u00e1 gastou em sua biblioteca da steam? (sem contar descontos)",
+        "options": [
+            "R$ 6336",
+            "R$ 7540",
+            "R$ 5589",
+            "R$ 8491"
+        ],
+        "answer": "R$ 6336"
+    }
+}
