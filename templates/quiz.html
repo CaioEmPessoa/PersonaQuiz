@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/steam_style.css">
+    <meta name="description" content="Responda este quiz sobre meu perfil da steam e veja se realmente me conhece!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
+
+    <title>Quiz !</title>
+</head>
+
+<body>
+    
+    <div class="header">
+
+        <a class="home" href="../index.html">
+        <img src="img/steam_logo.png">
+        <h1>Quiz Maker</h1>
+        </a>
+
+        <a class="create"  href="create_quiz.html"> faça o seu!</a>
+        
+    </div>
+
+    <div class="aviso"><p>Aviso: esse site ainda está em construção e ainda pode ter bugs. Caso ache algum, mande uma mensagem no twitter ou discord. @CaioEmPessoa</p></div><br>
+
+
+    <div class="area-pergunta">
+
+        <div class="numbers">
+            <div style="display: inline-block;" >
+                <div style="display: inline;" id="numbers"></div>
+                <div style="display: inline-flex;" id="continue"></div>
+            </div>
+        </div>
+        <div class="imagem-pergunta">
+            <!--img src="https://upload.wikimedia.org/wikipedia/pt/6/62/Nada_como_um_dia_ap%C3%B3s_o_outro_dia.jpg"-->
+            
+            <p id="title">Titulo do quiz</p>
+        </div>
+
+        <div class="perguntas" id="perguntas">
+            <p onclick="check_answr(this)" id="1" class="respostas hover">Resposta 1</p>
+            <p onclick="check_answr(this)" id="2" class="respostas hover">Resposta 2</p>
+            <p onclick="check_answr(this)" id="3" class="respostas hover">Resposta 3</p>
+            <p onclick="check_answr(this)" id="4" class="respostas hover">Resposta 4</p>
+        </div>
+
+    </div>
+
+    
+
+<script src="../js/display_quiz.js"></script>
+
+</body>
+</html>
