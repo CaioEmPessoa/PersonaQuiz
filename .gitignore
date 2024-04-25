@@ -1,0 +1,10 @@
+*.pyc
+*.pyo
+__pycache__/
+
+settings.py
+.env
+PersonaQuiz/__pycache__/__init__.cpython-312.pyc
+PersonaQuiz/__pycache__/settings.cpython-312.pyc
+PersonaQuiz/__pycache__/urls.cpython-312.pyc
+PersonaQuiz/__pycache__/wsgi.cpython-312.pyc
