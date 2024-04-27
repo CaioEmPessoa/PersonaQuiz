@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um site para gerar quizes baseado no seu perfil da Steam, LastFM ou Spotify!">
+    <meta name="keywords" content="steam spotify lastFM quiz auto">
+    <meta name="author" content="CaioEmPessoa">
+    
+    {% load static %}
+                                               <!-- TEMPORARY CSS -->
+    <link id="style" rel="stylesheet" href="{% static 'css/steam_style.css' %}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
+
+    <title>PersonaQuiz !</title>
+</head>
+
+<body>
+    
+    <div class="header">
+        <a class="home" href="index.html">
+        <img src="https://cdn-icons-png.flaticon.com/512/5829/5829298.png" style="border: 0px;">
+        <h1>PersonaQuiz</h1>
+        </a>        
+    </div>
+
+    <div class="aviso"><p>Aviso: esse site ainda está em construção e ainda pode ter bugs. Caso ache algum, mande uma mensagem no twitter ou discord. @CaioEmPessoa</p></div><br>
+
+
+    <div class="inicial">
+        <h2>Bem Vindo ao PersonaQuiz!</h2>
+        <h2>Escolha um desses sites para começar:</h2>
+        
+        <!-- <a href="#"> <img src="view/img/steam_logo.png" alt="the steam logo">Steam</a> -->
+        
+        <a href="#" class="lastfm"> <img src="{% static 'img/lastfm_logo.png' %}" alt="the lastfm logo"> LastFM</a>
+        <a href="#" class="spotify"> <img src="{% static 'img/spotify_logo.png' %}" alt="the spotify logo">Spotify</a>
+        <a href="SteamQuiz" class="steam"> <img src="{% static 'img/steam_logo.png' %}" alt="the steam logo"> Steam</a>
+        <br><br>
+        <h3> Feito por: @CaioEmPessoa</h3>
+        <br>
+
+    </div>
+
+</body>
+</html>
