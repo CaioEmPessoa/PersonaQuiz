@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "SteamQuiz"
+    'SteamQuiz'
 ]
 
 MIDDLEWARE = [
@@ -121,10 +121,11 @@ USE_TZ = True
 # Additional locations of static files
 STATICFILES_DIRS = (
     "static",
-   BASE_DIR / 'static/',
+   BASE_DIR / 'static_files/',
 )
+STATIC_ROOT = BASE_DIR / 'static_root/'
 
-STATIC_URL = 'static/'
+STATIC_URL = 'static_root/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

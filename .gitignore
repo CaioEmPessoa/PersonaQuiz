@@ -5,3 +5,4 @@ __pycache__/
 static_root/
 .env
 settings.py
+LastQuiz/

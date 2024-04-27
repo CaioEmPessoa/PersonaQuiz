@@ -8,7 +8,7 @@
     
     {% load static %}
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
-    <link rel="stylesheet" href="{% static add:style_path %}">
+    <link rel="stylesheet" href="{% static style_path %}">
 
     <title>Crie seu quiz!</title>
 </head>
@@ -17,8 +17,8 @@
     <div class="header">
 
         <a class="home" href="../index.html">
-        <img src="img/steam_logo.png">
-        <h1>Quiz Maker</h1>
+        <img src="{% static icon_path %}">
+        <h1>PersonaQuiz</h1>
         </a>
 
         <a class="create"  href="create_quiz.html"> faça o seu!</a>
@@ -64,7 +64,7 @@
     </div>
 
 
-<script type="module" src="../js/create_quiz.js"></script>
+<script type="module" src="{% static 'js/create_quiz.js' %}"></script>
 
 </body>
 </html>
