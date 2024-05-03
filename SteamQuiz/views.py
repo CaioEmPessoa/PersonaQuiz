@@ -35,6 +35,14 @@ def create(request):
                       "icon_path":ICON_PATH
                   })
 
+def quiz(request):
+    return render(request, "quiz.html",
+                  {
+                      "style_path": STYLE_PATH,
+                      "icon_path":ICON_PATH
+                  })
+
+# API REQUESTS
 
 def api_test(request):
     return HttpResponse('sucesso!')
