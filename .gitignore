@@ -7,3 +7,4 @@ static_root/
 settings.py
 LastQuiz/
 *migrations/
+user_data/
