@@ -1,5 +1,4 @@
 // Quiz Generation
-
 // read data
 var data = localStorage['quiz_data'];
 if (data==undefined) {
@@ -8,7 +7,7 @@ if (data==undefined) {
     const urlParams = new URLSearchParams(queryString);
     const quiz_id = urlParams.get('id')
     
-    window.location.href = "/UserQuizMaker/view/read_quiz.html?id=" + quiz_id
+    window.location.href = "/read_quiz?id=" + quiz_id //TODO: I DON'T THINK THIS WILL WORK, CHANGE TO DJANGO REQUEST INSTED
 }
 
 data = JSON.parse(data)

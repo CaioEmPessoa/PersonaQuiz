@@ -1,3 +1,11 @@
+const DEBUG = true
+
+if (DEBUG == true) {
+  var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
+} else if (DEBUG == false) {
+  var API_URL = "render_link" // TODO: GET RENDER LINK
+}
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const quiz_id = urlParams.get('id')
@@ -7,9 +15,9 @@ console.log(quiz_id)
 // Get quiz already made <--------------------------------<
 
 const request = function(request_id="1"){
-    fetch('http://127.0.0.1:5000/steam_app/test')
+    fetch(`${API_URL}/steam_app/test`)
     .then( response => {
-    fetch("http://127.0.0.1:5000/steam_app/open_created/" + request_id).then(response => response.json()).then(
+    fetch(`${API_URL}/read/${request_id}`).then(response => response.json()).then(
         function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Carregado!"){

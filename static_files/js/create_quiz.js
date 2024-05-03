@@ -1,3 +1,11 @@
+const DEBUG = true
+
+if (DEBUG == true) {
+  var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
+} else if (DEBUG == false) {
+  var API_URL = "render_link" // TODO: GET RENDER LINK
+}
+
 // the slider output <--------------------------------------------------<
 let slider = document.getElementById("questionSlider");
 let output = document.getElementById("sliderOutput");
@@ -39,9 +47,9 @@ send_button.onclick = function(){
     qstn_ammount = 1
   }
   
-  fetch('http://127.0.0.1:5000/steam_app/test')
+  fetch('/steam_app/test')
   .then( response => {
-    fetch("http://127.0.0.1:5000/steam_app/create/" + nameEntry + "/" + qstn_ammount).then(response => response.json()).then(
+    fetch(`${API_URL}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
       function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Criado!"){
@@ -56,7 +64,7 @@ send_button.onclick = function(){
           let sharelink = document.getElementById("sharelink")
 
           error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"
-          sharelink.innerHTML = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"]
+          sharelink.innerHTML = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"] // TODO: CHANGE EVERYTHING IN THIS
           sharelink.href = "https://caioempessoa.github.io/UserQuizMaker/view/quiz.html?id="+ data["qstn_id"]
           
           send_button.style.display = "inline-block"
