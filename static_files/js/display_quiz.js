@@ -7,7 +7,7 @@ if (data==undefined) {
     const urlParams = new URLSearchParams(queryString);
     const quiz_id = urlParams.get('id')
     
-    window.location.href = "/read_quiz?id=" + quiz_id //TODO: I DON'T THINK THIS WILL WORK, CHANGE TO DJANGO REQUEST INSTED
+    window.location.href = "/SteamQuiz/read_quiz/?id=" + quiz_id //TODO: I DON'T THINK THIS WILL WORK, CHANGE TO DJANGO REQUEST INSTED
 }
 
 data = JSON.parse(data)
@@ -159,6 +159,15 @@ const check_answr = function(answer){
     
 }
 
+// used to have onclick on html but had to change that
+const opt1 = document.getElementById ("1")
+const opt2 = document.getElementById ("2")
+const opt3 = document.getElementById ("3")
+const opt4 = document.getElementById ("4")
+
+opt1.addEventListener ("click", () => check_answr(opt1));
+opt2.addEventListener ("click", () => check_answr(opt2));
+opt3.addEventListener ("click", () => check_answr(opt3));
+opt4.addEventListener ("click", () => check_answr(opt4));
+
 // END Quiz Generation
-
-

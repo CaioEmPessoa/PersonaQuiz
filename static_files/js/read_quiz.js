@@ -15,7 +15,7 @@ console.log(quiz_id)
 // Get quiz already made <--------------------------------<
 
 const request = function(request_id="1"){
-    fetch(`${API_URL}/steam_app/test`)
+    fetch(`${API_URL}/test/`)
     .then( response => {
     fetch(`${API_URL}/read/${request_id}`).then(response => response.json()).then(
         function(data){
@@ -29,8 +29,8 @@ const request = function(request_id="1"){
             // salva as informações coletadas do quiz do servidor
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
-            const quiz_path = "/UserQuizMaker/view/quiz.html?id=" + request_id
-            return window.location.href = quiz_path
+            const quiz_path = "/SteamQuiz/quiz/?id=" + request_id
+            return window.location = quiz_path
         }
     });
     })
