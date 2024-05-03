@@ -1,16 +1,12 @@
-from steam import Steam
+from steam_web_api import Steam
 from decouple import config
 import json
 import random
 import string
 import os
 from datetime import datetime
-from flask import Flask, jsonify
 
-from recent_scrape import recent_games
-
-# STARTS FLASK APP
-app = Flask(__name__)
+from .recent_scrape import recent_games
 
 class SteamMaker():
 
@@ -88,7 +84,7 @@ class SteamMaker():
         with open(f"{self.user_data_location}/{link_id}.json", "w") as save_file:
             json.dump(self.qstn_dict, save_file, indent=4)
 
-        print("Perguntas Salvas!")
+        # print("Perguntas Salvas!")
 
     def make_qstn(self):
 
@@ -131,8 +127,8 @@ class SteamMaker():
             self.qstn_dict.update(question_info)
 
             # prints and returns the result
-            print("Questão feita!")
-            print(json.dumps(self.qstn_dict, indent=4))
+            # print("Questão feita!")
+            # print(json.dumps(self.qstn_dict, indent=4))
 
         self.save_quiz()
         self.qstn_dict["status"] = "Quiz Criado!"
@@ -161,7 +157,7 @@ class SteamMaker():
 
     def qstn_last_2weeks(self):
         question = f"Qual o jogo mais jogado nas últimas duas semanas por {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         sort_by_2weeks = []
 
@@ -187,7 +183,7 @@ class SteamMaker():
 
     def qstn_recent(self):
         question = f"Qual foi o último jogo jogado por {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         sort_by_last = recent_games(self.user["player"]["profileurl"])
         sort_by_last.append(random.choice(self.games)["name"])
@@ -199,7 +195,7 @@ class SteamMaker():
 
     def qstn_games_by_money(self):
         question = f"Qual o jogo mais caro da biblioteca de {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         # creating lists
         sort_by_money = []
@@ -242,8 +238,8 @@ class SteamMaker():
         return question, games_name, sort_by_money[0][1]
 
     def qstn_spent_money(self):
-        question = f"Quanto custa a biblioteca de {self.user['player']['personaname']} sem contar descontos?"
-        print("pergunta: " + question)
+        question = f"Quanto {self.user['player']['personaname']} já gastou em sua biblioteca da steam? (sem contar descontos)"
+        # print("pergunta: " + question)
 
         id_list = []
         spent_money = []
@@ -297,7 +293,7 @@ class SteamMaker():
 
     def qstn_achievements(self): # not working
         question = f"Qual o jogo com mais conquistas de {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
 
         # this code is unoptimized, it makes a request for each game, wich takes a lot of time.
@@ -327,7 +323,7 @@ class SteamMaker():
 
     def qstn_level(self): # steam level
         question = f"Qual level de {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         level = self.steam.users.get_user_steam_level(self.id)["player_level"]
 
@@ -345,7 +341,7 @@ class SteamMaker():
     
     def qstn_created(self):
         question = f"Quando {self.user['player']['personaname']} criou sua conta?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         # gets the unix time the user created its account and convert it to common years
         year_created = self.user["player"]["timecreated"]
@@ -365,7 +361,7 @@ class SteamMaker():
         
     def qstn_old_friend(self):
         question = f"Quem é o amigo mais antigo de {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         oldest_friends = []
         for friend in self.friends:
@@ -382,7 +378,7 @@ class SteamMaker():
         
     def qstn_friend_count(self):
         question = f"Quantos amigos {self.user['player']['personaname']} tem?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         friends_count = len(self.friends)
 
@@ -400,7 +396,7 @@ class SteamMaker():
 
     def qstn_library(self):
         question = f"Quantos jogos {self.user['player']['personaname']} possui em sua biblioteca?"
-        print("pergunta: " + question)
+        # print("pergunta: " + question)
 
         library_count = len(self.games)
 
@@ -416,38 +412,3 @@ class SteamMaker():
 
         # the first item of the list is the right
         return question, library_optn, library_optn[0]
-
-
-@app.route("/steam_app/test")
-def server_test():
-    return ("sucesso!")
-
-@app.route("/steam_app/create/<username>/<ammount>")
-def start(username, ammount):
-    data = jsonify(Start.user_data(username, int(ammount)))
-    return data
-
-@app.route("/steam_app/open_created/<user_id>")
-def open_created(user_id):
-    try:
-        with open(f"{Start.user_data_location}/{user_id}.json", "r") as load_file:
-            data = json.load(load_file)
-            data["status"] = "Quiz Carregado!"
-            return jsonify(data)
-    except:
-        return(jsonify({"status":"Esse quiz não existe! Verifique seu código."}))
-
-
-@app.after_request
-def header_apply(response):
-
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Credentials"] ="True"
-    return response
-
-if __name__ == "__main__":
-    from waitress import serve
-    Start = SteamMaker()
-    app.add_url_rule
-    serve(app, host="0.0.0.0", port=5000)
-
