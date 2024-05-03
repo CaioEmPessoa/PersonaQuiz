@@ -1,16 +1,12 @@
-from steam import Steam
+from steam_web_api import Steam
 from decouple import config
 import json
 import random
 import string
 import os
 from datetime import datetime
-from flask import Flask, jsonify
 
-from recent_scrape import recent_games
-
-# STARTS FLASK APP
-app = Flask(__name__)
+from .recent_scrape import recent_games
 
 class SteamMaker():
 
@@ -416,37 +412,3 @@ class SteamMaker():
 
         # the first item of the list is the right
         return question, library_optn, library_optn[0]
-
-
-@app.route("/steam_app/test")
-def server_test():
-    return ("sucesso!")
-
-@app.route("/steam_app/create/<username>/<ammount>")
-def start(username, ammount):
-    data = jsonify(Start.user_data(username, int(ammount)))
-    return data
-
-@app.route("/steam_app/open_created/<user_id>")
-def open_created(user_id):
-    try:
-        with open(f"{Start.user_data_location}/{user_id}.json", "r") as load_file:
-            data = json.load(load_file)
-            data["status"] = "Quiz Carregado!"
-            return jsonify(data)
-    except:
-        return(jsonify({"status":"Esse quiz não existe! Verifique seu código."}))
-
-
-@app.after_request
-def header_apply(response):
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Credentials"] ="True"
-    return response
-
-if __name__ == "__main__":
-    from waitress import serve
-    Start = SteamMaker()
-    app.add_url_rule
-    app.run(debug=True)
-    # serve(app, host="0.0.0.0", port=5000)
