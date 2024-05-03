@@ -25,7 +25,9 @@ SECRET_KEY = "django-insecure-rpeo&dss-f_p9&x3!4iidd=tf@+lf1exu7v5t+4477livp7cbt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "steam-quiz-api.onrender.com"
+]
 
 
 # Application definition
