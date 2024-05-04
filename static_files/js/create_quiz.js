@@ -3,7 +3,7 @@ const DEBUG = false
 if (DEBUG == true) {
   var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
 } else if (DEBUG == false) {
-  var API_URL = "https://steam-quiz-api.onrender.com/api" // TODO: GET RENDER LINK
+  var API_URL = "https://steam-quiz-api.onrender.com/SteamQuiz/api"
 }
 
 // the slider output <--------------------------------------------------<
@@ -47,7 +47,7 @@ send_button.onclick = function(){
     qstn_ammount = 1
   }
   
-  fetch('/SteamQuiz/test')
+  fetch(`${API_URL}/SteamQuiz/test`)
   .then( response => {
     fetch(`${API_URL}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
       function(data){
