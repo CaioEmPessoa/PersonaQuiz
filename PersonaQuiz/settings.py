@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-rpeo&dss-f_p9&x3!4iidd=tf@+lf1exu7v5t+4477livp7cbt
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "steam-quiz-api.onrender.com"
+    "personaquiz.onrender.com"
 ]
 
 

@@ -3,7 +3,7 @@ const DEBUG = false
 if (DEBUG == true) {
   var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
 } else if (DEBUG == false) {
-  var API_URL = "https://steam-quiz-api.onrender.com/SteamQuiz/api"
+  var API_URL = "https://personaquiz.onrender.com/SteamQuiz/api"
 }
 
 // the slider output <--------------------------------------------------<
