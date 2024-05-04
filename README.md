@@ -1,14 +1,15 @@
 # You can access the site [here](https://caioempessoa.github.io/UserQuizMaker/)
 
-## UserQuizMaker
-A program that makes a quiz based on your Steam account. 
+## PersonaQuiz
+A website that makes quizes about your online persona based on the websites you like. 
 
 
 ## What it does?
-The initial idea was to make a quiz about your LastFM profile, then I wanted to make of Steam, LastFM and Spotify, but sticked to just Steam, but the "skeleton" of the project its quite ready, but I won't add them so soon, for know its just the "_Steam Quiz Maker_".
-* The site is entirely on portuguease, and english support is the first thing I'll add if I go back to this project.
+For now it only makes quizes about Steam profiles, but I'll work hard to make an LastFM and Spotify too, and I could add more websites if asked.
+* The site is entirely on portuguease, and english support is one of my top priorities.
 
 ## How it does?
+Well for know this part will be about the Steam quiz, the one that's ready.
 You just click on "create a quiz" and paste the link to your steam profile. To get it, you can go to your profile on the Steam app and copy the link that stays up in the page: 
 (mine is just 'CaioEmPessoa' bc you can custom one for you, but your's probably is just some random characters)
 
