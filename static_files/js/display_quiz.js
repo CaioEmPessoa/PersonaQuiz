@@ -162,7 +162,7 @@ const check_answr = function(answer){
 // used to have onclick on html but had to change that
 let optns = []
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
     optns[i] = document.getElementById(i+1)
     optns[i].addEventListener("click", () => check_answr(optns[i]))
 }
