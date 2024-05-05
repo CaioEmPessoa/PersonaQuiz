@@ -160,14 +160,11 @@ const check_answr = function(answer){
 }
 
 // used to have onclick on html but had to change that
-const opt1 = document.getElementById ("1")
-const opt2 = document.getElementById ("2")
-const opt3 = document.getElementById ("3")
-const opt4 = document.getElementById ("4")
+let optns = []
 
-opt1.addEventListener ("click", () => check_answr(opt1));
-opt2.addEventListener ("click", () => check_answr(opt2));
-opt3.addEventListener ("click", () => check_answr(opt3));
-opt4.addEventListener ("click", () => check_answr(opt4));
+for (let i = 0; i < 3; i++) {
+    optns[i] = document.getElementById(i+1)
+    optns[i].addEventListener("click", () => check_answr(optns[i]))
+}
 
 // END Quiz Generation
