@@ -23,10 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-rpeo&dss-f_p9&x3!4iidd=tf@+lf1exu7v5t+4477livp7cbt"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    "personaquiz.onrender.com"
+    "personaquiz.onrender.com",
+    "127.0.0.1"
 ]
 
 
@@ -129,9 +130,10 @@ STATICFILES_DIRS = (
 # STATIC_ROOT = BASE_DIR / 'static_root/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 STATIC_URL = '/static/'
+
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
