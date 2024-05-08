@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um site para gerar quizes baseado no seu perfil da Steam, LastFM ou Spotify!">
+    <meta name="keywords" content="steam spotify lastFM quiz auto">
+    <meta name="author" content="CaioEmPessoa">
+    
+    {% load static %}
+    <link id="style" rel="stylesheet" href="{% static style_path %}">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
+
+    <title>PersonaQuiz !</title>
+</head>
+
+<body>
+    
+    <div class="header">
+        <a class="home" href="/">
+        <img src="{% static icon_path %}">
+        <h1>PersonaQuiz</h1>
+        </a>
+
+        <a class="create"  href="/SteamQuiz/create_quiz/"> faça o seu!</a>
+        
+    </div>
+
+    <div class="aviso"><p>Aviso: esse site ainda está em construção e ainda pode ter bugs. Caso ache algum, mande uma mensagem no twitter ou discord. @CaioEmPessoa</p></div><br>
+
+
+    <div class="inicial">
+
+        {% block content %}
+        
+
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>

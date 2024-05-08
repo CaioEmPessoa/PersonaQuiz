@@ -1,0 +1,27 @@
+{% extends 'main_base.html' %}
+
+{% block content %}
+
+    {% load static %}
+    
+    <div class="username">
+        <p id="error", style="color:red"></p>
+        <p>Coloque aqui o código do link:</p>
+        
+        <input type="text", id="quiz-id", style="width: 70%;">
+    </div>
+    
+    <button id="entrar-criado" class="enviar">Entrar</button>
+    
+    <div class="quiz">
+        <p id="teste-json"> </p>
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    
+    <script type="module" src="{% static 'js/read_quiz.js' %}"></script>
+    
+{% endblock %}
+    
