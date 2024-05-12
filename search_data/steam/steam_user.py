@@ -14,10 +14,11 @@ class SteamMaker():
         super().__init__()
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
-        self.DEBUG = config("DEBUG")
+        self.DEBUG = bool(config("DEBUG"))
         self.steam = Steam(KEY)
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/../user_data"
-        
+        if self.DEBUG == True:
+            print("debuging")
 
     def user_data(self, username, ammount):
 
@@ -25,7 +26,8 @@ class SteamMaker():
         try:
             self.qstn_dict.clear
         except:
-            print("ok")
+            if self.DEBUG == True:
+                print("ok")
             
         self.qstn_dict = {
             "status":"undefined",
@@ -64,6 +66,7 @@ class SteamMaker():
 
         # Pegar Dados User ---------------------------<
         self.id = self.user["player"]["steamid"]
+        print("IDUSER=",  self.id)
         self.user = self.steam.users.get_user_details(self.id)
         self.friends = self.steam.users.get_user_friends_list(self.id)["friends"]
         self.games = self.steam.users.get_owned_games(self.id)["games"]
@@ -99,8 +102,14 @@ class SteamMaker():
         # Lista de todas funções que fazem as perguntas
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
-            self.qstn_friend_count, self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
+            self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
             self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]
+        
+        '''
+        questions_list = [
+            self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
+            self.qstn_friend_count, self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
+            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]'''
 
         # questions_list = [self.qstn_spent_money]
         # A list with the itens on the list
@@ -343,6 +352,12 @@ class SteamMaker():
 
         level = self.steam.users.get_user_steam_level(self.id)["player_level"]
 
+        print("#########")
+        print("#########")
+        print(level)
+        print("#########")
+        print("#########")
+
         level_range = list(range(round(level/1.5), round(level*1.5)))
 
         level_optn = []
@@ -394,7 +409,7 @@ class SteamMaker():
 
         return question, friends_name, friends_name[0]
         
-    def qstn_friend_count(self):
+    def qstn_friend_count(self): # TODO: FRIEND COUNT BELOW 4 INSERT RANDOM NAME
         question = f"Quantos amigos {self.user['player']['personaname']} tem?"
         if self.DEBUG == True:
             print("pergunta: " + question)
