@@ -1,14 +1,52 @@
-{% extends 'main_base.html' %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
 
-{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um site para gerar quizes baseado no seu perfil da Steam, LastFM ou Spotify!">
+    <meta name="keywords" content="steam spotify lastFM quiz auto">
+    <meta name="author" content="CaioEmPessoa">
 
-    {% load static %}
+    <link id="style" rel="stylesheet" href="css/steam_style.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
+
+    <title>PersonaQuiz !</title>
+</head>
+
+<body>
+    
+    <div class="background-div">
+        
+    </div>
+
+    <div class="header">
+        <div class="left">
+            <a class="persona-logo" href="/">
+                <img src="img/steam_logo.png">
+                <h1>PersonaQuiz</h1>
+            </a>
+                    
+        </div>
+
+        <div class="right">
+            <a href="#"><img src="https://images.emojiterra.com/twitter/v13.1/512px/1f1e7-1f1f7.png"></a>
+            <a class="create"  href="/SteamQuiz/create_quiz/"> Faça o Seu!</a>
+            
+        </div>
+        
+    </div>
+
+    <br>
+    
+    <div class="content">
+        <div class="inicial">
     <div class="username">
         <p id="error", style="color:red"></p>
         <a id="sharelink" style="all:unset; display:block;" class="sharelink"></a>
 
         <p>Cole aqui o link de seu perfil:</p>
-        <input type="text", id="usernameEntry", style="width: 70%;">
+        <input type="text", id="usernameEntry">
     </div>
     
     <div class="questions">
@@ -20,23 +58,21 @@
     <img id="loading" class="loading" src="{% static 'img/loading.gif' %}">
     <button id="enviar" class="enviar">Enviar Informações</button>
     
-    <hr style="border: solid black 1px; margin-top: 30px;">
+    <hr style="border: solid white 1px; margin-top: 30px;">
     <div class="ajuda">
-        <p style="font-size: 18px; text-align: left;">aviso: seu perfil precisa ter os seguintes requerimentos:
-            <br> -gasto mais de 5 doláres na steam* 
-            <br> -ter mais de 4 jogos**.
-            <br> -ter seus dados públicos***</p>
-        <a href="#" id="info-btn">Por que?</a>
-        <div class="ajuda-oculta" id="ajuda-oculta">
-            <p>&emsp;*Os dados do seu perfil só se tornam públicos após ter gasto mais de 5 dólares (aproximadamente 25 reais) para evitar contas criadas para spam e coisas do genero. 
-                <br> &emsp;Saiba mais no site oficial: <a target="_blank" style="margin:0px; padding:0px" href="https://help.steampowered.com/pt-br/faqs/view/71D3-35C2-AD96-AA3A">aqui</a>
-                <br>
-                &emsp; **Não é algo estritamente necessário ter mais de 4 jogos na biblioteca, porém as perguntas do quiz tem 4 opções, e existem perguntas que ignoram jogos que são gratuitos, como "qual jogo mais caro da biblioteca", logo seria necessário ter 4> jogos pagos para o quiz funcionar 100%.
-                <br> &emsp;Mas talvez mesmo assim ele funcione sem problemas, só não garanto que a experiencia seria boa.
-            </p>
-        </div>
+        <p style="font-size: 18px; text-align: left;">Seu perfil precisa ter os seguintes requerimentos:
+            <br> -gasto mais de 5 doláres na steam
+            <br> -ter mais de 4 jogos
+            <br> -ter seus dados públicos</p>
     </div>
     
-    <script type="module" src="{% static 'js/create_quiz.js' %}"></script>
+    <script type="module" src="../static_files/js/create_quiz.js"></script>
 
-{% endblock %}
+        </div>
+        <br>
+        <br>
+        <div class="aviso"><p>Aviso: esse site ainda está em construção e ainda pode ter bugs. Caso ache algum, mande uma mensagem no twitter ou discord. @CaioEmPessoa</p></div><br>
+    
+    </div>
+</body>
+</html>
