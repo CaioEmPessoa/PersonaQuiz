@@ -14,6 +14,7 @@ class SteamMaker():
         super().__init__()
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
+        self.DEBUG = config("DEBUG")
         self.steam = Steam(KEY)
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/../user_data"
         
@@ -33,23 +34,29 @@ class SteamMaker():
         }
 
         # Pesquisando por ID
-        print("pesquisando por id...")
+        if self.DEBUG == True:
+            print("pesquisando por id...")
         self.user = self.steam.users.search_user(username)
         # Caso não tenha encontrado
         if self.user == "No match":
-            print("nome de usuário '" + username + "' não válido! Tentando busca por id...")
+            if self.DEBUG == True:
+                print("nome de usuário '" + username + "' não válido! Tentando busca por id...")
             
             # Tenta pegar os detalhes do usuário pelo ID
             try:
                 self.user = self.steam.users.get_user_details(username)
-                print(self.user["player"]["personaname"] + " encontrado!")
+
+                if self.DEBUG == True:
+                    print(self.user["player"]["personaname"] + " encontrado!")
             
             except:
                 print("Id também não válido! saindo do programa...")
                 self.qstn_dict["status"] = "O link provido não é de nenhum usuário."
                 return self.qstn_dict
         if self.user["player"]["communityvisibilitystate"] != 3:
-            print("Perfil de usuário é privado!")
+
+            if self.DEBUG == True:
+                print("Perfil de usuário é privado!")
 
             self.qstn_dict["status"] = "Perfil de usuário é privado!"
             return self.qstn_dict
@@ -84,7 +91,8 @@ class SteamMaker():
         with open(f"{self.user_data_location}/{link_id}.json", "w") as save_file:
             json.dump(self.qstn_dict, save_file, indent=4)
 
-        # print("Perguntas Salvas!")
+        if self.DEBUG == True:
+            print("Perguntas Salvas!")
 
     def make_qstn(self):
 
@@ -127,8 +135,9 @@ class SteamMaker():
             self.qstn_dict.update(question_info)
 
             # prints and returns the result
-            # print("Questão feita!")
-            # print(json.dumps(self.qstn_dict, indent=4))
+            if self.DEBUG == True:
+                print("Questão feita!")
+                print(json.dumps(self.qstn_dict, indent=4))
 
         self.save_quiz()
         self.qstn_dict["status"] = "Quiz Criado!"
@@ -137,7 +146,8 @@ class SteamMaker():
 
     def qstn_hours(self):
         question = f"Qual o jogo mais jogado de {self.user['player']['personaname']}?"
-        print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
         sort_by_hours = []
 
 
@@ -157,7 +167,8 @@ class SteamMaker():
 
     def qstn_last_2weeks(self):
         question = f"Qual o jogo mais jogado nas últimas duas semanas por {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         sort_by_2weeks = []
 
@@ -183,7 +194,8 @@ class SteamMaker():
 
     def qstn_recent(self):
         question = f"Qual foi o último jogo jogado por {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         sort_by_last = recent_games(self.user["player"]["profileurl"])
         sort_by_last.append(random.choice(self.games)["name"])
@@ -195,7 +207,8 @@ class SteamMaker():
 
     def qstn_games_by_money(self):
         question = f"Qual o jogo mais caro da biblioteca de {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         # creating lists
         sort_by_money = []
@@ -239,7 +252,8 @@ class SteamMaker():
 
     def qstn_spent_money(self):
         question = f"Quanto {self.user['player']['personaname']} já gastou em sua biblioteca da steam? (sem contar descontos)"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         id_list = []
         spent_money = []
@@ -293,7 +307,8 @@ class SteamMaker():
 
     def qstn_achievements(self): # not working
         question = f"Qual o jogo com mais conquistas de {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
 
         # this code is unoptimized, it makes a request for each game, wich takes a lot of time.
@@ -323,7 +338,8 @@ class SteamMaker():
 
     def qstn_level(self): # steam level
         question = f"Qual level de {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         level = self.steam.users.get_user_steam_level(self.id)["player_level"]
 
@@ -341,7 +357,8 @@ class SteamMaker():
     
     def qstn_created(self):
         question = f"Quando {self.user['player']['personaname']} criou sua conta?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         # gets the unix time the user created its account and convert it to common years
         year_created = self.user["player"]["timecreated"]
@@ -361,7 +378,8 @@ class SteamMaker():
         
     def qstn_old_friend(self):
         question = f"Quem é o amigo mais antigo de {self.user['player']['personaname']}?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         oldest_friends = []
         for friend in self.friends:
@@ -378,7 +396,8 @@ class SteamMaker():
         
     def qstn_friend_count(self):
         question = f"Quantos amigos {self.user['player']['personaname']} tem?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         friends_count = len(self.friends)
 
@@ -396,7 +415,8 @@ class SteamMaker():
 
     def qstn_library(self):
         question = f"Quantos jogos {self.user['player']['personaname']} possui em sua biblioteca?"
-        # print("pergunta: " + question)
+        if self.DEBUG == True:
+            print("pergunta: " + question)
 
         library_count = len(self.games)
 
