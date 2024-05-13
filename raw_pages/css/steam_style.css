@@ -123,14 +123,14 @@ body{
     margin-top: 7px;
 }
 
-.header .create {
+.header .right .button {
     color: black;
     text-decoration: none;
     border-radius: 10px;
     padding: 5px 10px;
     font-size:20px;
+    margin: 0px 10px;
     background-color: #8a90ed;
-    display: none;
 }
 
 .header .create:hover {
@@ -287,18 +287,18 @@ body{
     float:left;
 }
 
-.inicial .lastfm{
-    background-color: #dd5955;
+.lastfm{
+    background-color: #dd5955!important;
 }
-.inicial .lastfm:hover{
+.lastfm:hover{
     background-color: #ff7f7a!important;
 }
 
-.inicial .spotify{
-    background-color: #1ed760;
+.spotify{
+    background-color: #1ed760!important;
 }
 
-.inicial .spotify:hover{
+.spotify:hover{
     background-color: rgb(123, 239, 108, .7)!important;
 }
 
