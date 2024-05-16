@@ -123,6 +123,7 @@ USE_TZ = True
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    "static",
    BASE_DIR / 'static_origin/'
 )
 

@@ -3,6 +3,7 @@
 __pycache__/
 
 static_root/
+static_dstn/*
 .env
 settings.py
 LastQuiz/
