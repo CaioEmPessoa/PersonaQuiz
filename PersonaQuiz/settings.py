@@ -123,12 +123,10 @@ USE_TZ = True
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "static",
-   BASE_DIR / 'static_files/',
+   BASE_DIR / 'static_origin/'
 )
-# STATIC_ROOT = BASE_DIR / 'static_root/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_dstn')
 STATIC_URL = '/static/'
 
 if not DEBUG:
