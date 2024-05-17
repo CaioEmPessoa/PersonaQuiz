@@ -14,7 +14,7 @@ class SteamMaker():
         super().__init__()
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
-        self.DEBUG = bool(config("DEBUG"))
+        self.DEBUG = False
         self.steam = Steam(KEY)
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/../user_data"
         if self.DEBUG == True:
