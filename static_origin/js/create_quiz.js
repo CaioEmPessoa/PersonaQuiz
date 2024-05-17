@@ -81,21 +81,3 @@ send_button.onclick = function(){
   }
   //>-----------------------------------------------------------------------------> END json data
   
-
-// help button <--------------------------------<
-let helpBtn = document.getElementById("info-btn")
-let helpDiv = document.getElementById("ajuda-oculta")
-// false bc it doesn't show up
-let state = false
-
-helpBtn.onclick = function(){
-  if(state==false){
-  helpDiv.style.display = "inline"
-  // it is now showing
-  state = true
-} else{
-  helpDiv.style.display = "none"
-  // it isn't showing anymore
-  state = false
-}}
-// >--------------------------==> END help button
