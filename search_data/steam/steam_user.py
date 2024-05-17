@@ -103,7 +103,8 @@ class SteamMaker():
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
             self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
-            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]
+            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money,
+            self.qstn_friend_count]
         
         '''
         questions_list = [
