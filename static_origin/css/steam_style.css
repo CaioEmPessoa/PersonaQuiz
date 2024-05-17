@@ -228,11 +228,15 @@ body{
 
 .inicial .sharelink {
     color: blue!important;
-    text-decoration: underline!important;
+    padding: 0px!important;
+    display: inline!important;
 }
 .inicial .sharelink:hover {
-    background-color: white;
-    font-weight: bolder;
+    text-decoration: underline!important;
+    display: inline!important;
+    cursor: pointer!important;
+    padding: 0px!important;
+    
 }
 
 /* Botões para outras páginas */
@@ -484,16 +488,22 @@ input[type=range] {
 }
 
 .inicial button{
-    padding:7px;
-    border-radius: 15px;
-    border: solid 2px black;
+    color: white;
     background-color: #6a78f6;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size:20px;
+    margin:20px;
+    padding: 10px 15px;
+    display: inline-block;
+    border-radius: 15px;
+    border: none;
 }
 
 .inicial button:hover{
     background-color: #8692f8;
+    cursor: pointer;
 }
-
 
 /* FIM CRIANDO QUIZ*/
 
