@@ -10,16 +10,12 @@ if (DEBUG == true) {
 
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const quiz_id = urlParams.get('id')
+var quiz_id = urlParams.get('id')
 
-console.log(quiz_id)
-
-// Get quiz already made <--------------------------------<
-
-const get_questions = function(request_id="1"){
+const get_questions = function(question_id="1", replace=false){
     fetch(`${API_URL}/test/`)
     .then( response => {
-    fetch(`${API_URL}/read/${request_id}`).then(response => response.json()).then(
+    fetch(`${API_URL}/read/${question_id}`).then(response => response.json()).then(
         function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Carregado!"){
@@ -31,8 +27,13 @@ const get_questions = function(request_id="1"){
             // salva as informações coletadas do quiz do servidor
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
-            const quiz_path = "/SteamQuiz/quiz/?id=" + request_id
+            const quiz_path = "/SteamQuiz/quiz/?id=" + question_id
+            if (replace) {
+                window.location.replace(quiz_path)
+                return
+            } else {
                 return window.location = quiz_path
+            }
         }
     });
     })
@@ -64,8 +65,15 @@ searchBar.addEventListener("keydown", function(event) {
     }
 })
 
-/* INDEX PAGE STUFF */
+// INDEX PAGE SCRIPTS
+let current_path = window.location.pathname
+if(current_path == "/SteamQuiz/" || current_path == "/SteamQuiz/#"){
     let startQuizBtn = document.getElementById("startQuiz")
     startQuizBtn.onclick = () => {
         searchBar.focus()
+    }
+    
+    if (quiz_id != null) {
+        get_questions(quiz_id, true)
+    }
 }
