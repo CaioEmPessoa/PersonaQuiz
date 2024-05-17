@@ -2,8 +2,10 @@ const DEBUG = true
 
 if (DEBUG == true) {
   var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
+  var MAIN_URL = "http://127.0.0.1:8000/SteamQuiz/"
 } else if (DEBUG == false) {
-  var API_URL = "https://personaquiz.onrender.com/SteamQuiz/api"
+    var API_URL = "https://personaquiz.onrender.com/SteamQuiz/api"
+    var MAIN_URL = "https://personaquiz.onrender.com/SteamQuiz"
 }
 
 const queryString = window.location.search;
@@ -14,7 +16,7 @@ console.log(quiz_id)
 
 // Get quiz already made <--------------------------------<
 
-const request = function(request_id="1"){
+const get_questions = function(request_id="1"){
     fetch(`${API_URL}/test/`)
     .then( response => {
     fetch(`${API_URL}/read/${request_id}`).then(response => response.json()).then(
@@ -30,7 +32,7 @@ const request = function(request_id="1"){
             let quiz_data = JSON.stringify(data);
             localStorage.setItem('quiz_data', quiz_data);
             const quiz_path = "/SteamQuiz/quiz/?id=" + request_id
-            return window.location = quiz_path
+                return window.location = quiz_path
         }
     });
     })
@@ -39,32 +41,31 @@ const request = function(request_id="1"){
         return error_label.innerHTML = "Erro do servidor, tente novamente mais tarde."
     })
 }
-// END Get quiz >-------------------------------->
-
-if(quiz_id){
-    request(quiz_id)
-}
-
 
 // SEARCH BAR BEHAVIOUR
 let searchBar = document.getElementById("searchBar")
-
 searchBar.addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         if (searchBar === document.activeElement) {
             let quizID = searchBar.value
-            // checking if is a url in the search bar
-            if (quizID.startsWith(API_URL.slice(0, -4))) {
-                quizID = quizID.slice(-6)
-            }
 
-            request(quizID)
+            // checking if is a url in the search bar or an id
+            if (quizID.startsWith(API_URL)) {
+                get_questions(quizID.slice(-6))
+            }
+            else if (quizID.length == 6) {
+                get_questions(quizID)
+            } 
+            else {
+                // TODO: TRIGGER ERROR POPUP
+                return
+            }
         }
     }
 })
 
 /* INDEX PAGE STUFF */
-let startQuizBtn = document.getElementById("startQuiz")
-startQuizBtn.onclick = () => {
-    searchBar.focus()
+    let startQuizBtn = document.getElementById("startQuiz")
+    startQuizBtn.onclick = () => {
+        searchBar.focus()
 }
