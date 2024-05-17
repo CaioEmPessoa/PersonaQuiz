@@ -464,7 +464,7 @@ input[type=range] {
     height: 25px;
     -webkit-appearance: none;
     margin: 10px 0;
-    background-color: white;
+    background-color: #6a78f6;
 }
 
 input[type=range] {
