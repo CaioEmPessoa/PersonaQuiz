@@ -67,7 +67,7 @@ searchBar.addEventListener("keydown", function(event) {
 
 // INDEX PAGE SCRIPTS
 let current_path = window.location.pathname
-if(current_path == "/SteamQuiz/" || current_path == "/SteamQuiz/#"){
+if(current_path == "/SteamQuiz/"){
     let startQuizBtn = document.getElementById("startQuiz")
     startQuizBtn.onclick = () => {
         searchBar.focus()
