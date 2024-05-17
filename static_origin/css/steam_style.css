@@ -5,6 +5,7 @@ DARK :
 TEXT = #e8ebfc
 
 BACKGROUND = #050722
+SECOND BACKGROUND = #0f1565
 
 PRIMARY = #8a90ed
 
@@ -28,7 +29,7 @@ ACCENT = #c71f33
 
 
 html {
-    height: 80%;
+    height: 100%;
 }
 
 body{
@@ -70,7 +71,6 @@ body{
     background-color: #f1f1f1;
     display: flex;
     justify-content: space-between;
-    position: sticky;
     width: 100%;
     height: 65px;
     margin:-10px 0px 10px 0px;
@@ -85,9 +85,9 @@ body{
 .search-bar {
     width: 100%;
     display: flex;
+    position: fixed;
     justify-content: center;
     top: 0;
-    position: fixed;
     z-index: 100;
     pointer-events:none; 
 }
@@ -180,12 +180,10 @@ body{
 
 .content {
     display: flex;
-    position:fixed;
     flex-direction: column;
     align-items: center;
-    height: 100%;
     width: 100%;
-    margin-top: 3%;
+    margin-top: 2%;
 }
 
 .aviso {
@@ -193,8 +191,9 @@ body{
     text-align: center;
     background-color:#e0364a;
     color:#e8ebfc;
-    margin-top: 50px;
     padding:1px 20px;
+    margin: 2% 15%;
+    margin-bottom: 20px;
 }
 
 .inicial{
@@ -386,7 +385,7 @@ input[type=range] {
     height: 25px;
     -webkit-appearance: none;
     margin: 10px 0;
-    background-color: #050722;
+    background-color: #0f1565;
 }
 
 input[type=range] {
@@ -485,6 +484,7 @@ input[type=range] {
 
 .inicial button{
     padding:7px;
+    font-size:18px;
     border-radius: 15px;
     border: solid 2px black;
     background-color: #6a78f6;
