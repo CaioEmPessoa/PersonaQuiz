@@ -24,7 +24,7 @@ let send_button = document.getElementById("enviar");
 let loading = document.getElementById("loading")
 let error_label = document.getElementById("error")
 
-send_button.onclick = function(){
+let create_quiz = function(){
   let nameEntry = document.getElementById("usernameEntry").value
 
   if (nameEntry[nameEntry.length-1] != "/"){
@@ -78,6 +78,16 @@ send_button.onclick = function(){
       loading.style.display = "none"
       return error_label.innerHTML = "Erro do servidor, tente novamente mais tarde."
     });
-  }
+}
   //>-----------------------------------------------------------------------------> END json data
-  
+ 
+send_button.onclick = () => create_quiz()
+let usernameEntry = document.getElementById("usernameEntry")
+
+usernameEntry.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        if (usernameEntry === document.activeElement) {
+          create_quiz()
+        }
+    }
+})
