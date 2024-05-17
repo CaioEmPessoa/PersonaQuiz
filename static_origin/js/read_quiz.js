@@ -39,14 +39,14 @@ const request = function(request_id="1"){
         return error_label.innerHTML = "Erro do servidor, tente novamente mais tarde."
     })
 }
+// END Get quiz >-------------------------------->
 
 if(quiz_id){
     request(quiz_id)
 }
 
 
-
-let entrar = document.getElementById("entrar-criado")
+// SEARCH BAR BEHAVIOUR
 let searchBar = document.getElementById("searchBar")
 
 searchBar.addEventListener("keydown", function(event) {
@@ -63,10 +63,8 @@ searchBar.addEventListener("keydown", function(event) {
     }
 })
 
+/* INDEX PAGE STUFF */
 let startQuizBtn = document.getElementById("startQuiz")
 startQuizBtn.onclick = () => {
     searchBar.focus()
 }
-
-
-// END Get quiz >-------------------------------->

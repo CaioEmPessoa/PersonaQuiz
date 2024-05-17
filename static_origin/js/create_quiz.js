@@ -47,7 +47,7 @@ send_button.onclick = function(){
     qstn_ammount = 1
   }
   
-  fetch(`${API_URL}/SteamQuiz/test`)
+  fetch(`${API_URL}/test`)
   .then( response => {
     fetch(`${API_URL}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
       function(data){
@@ -64,8 +64,8 @@ send_button.onclick = function(){
           let sharelink = document.getElementById("sharelink")
 
           error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"
-          sharelink.innerHTML = `${API_URL.slice(0, -4)}/read_quiz/?id=${data["qstn_id"]}`
-          sharelink.href = `${API_URL.slice(0, -4)}/read_quiz/?id=${data["qstn_id"]}`
+          sharelink.innerHTML = `${API_URL.slice(0, -4)}/?id=${data["qstn_id"]}`
+          sharelink.href = `${API_URL.slice(0, -4)}/?id=${data["qstn_id"]}`
           
           send_button.style.display = "inline-block"
           loading.style.display = "none"
