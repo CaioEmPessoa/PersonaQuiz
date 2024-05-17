@@ -3,10 +3,14 @@
 {% block content %}
 
     {% load static %}
-    <div class="username">
+    
+    <div id="resposse"> 
         <p id="error", style="color:red"></p>
         <a id="sharelink" style="all:unset; display:block;" class="sharelink"></a>
+        <a class="gg-copy"></a>
+    </div>
 
+    <div class="username">
         <p>Cole aqui o link do seu perfil:</p>
         <input type="text", id="usernameEntry", style="width: 70%;">
     </div>
@@ -32,5 +36,6 @@
     </div>
     
     <script type="module" src="{% static 'js/create_quiz.js' %}"></script>
+
 
 {% endblock %}

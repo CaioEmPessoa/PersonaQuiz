@@ -84,7 +84,7 @@ body{
 .search-bar {
     width: 100%;
     display: flex;
-    position: fixed;
+    position: absolute;
     justify-content: center;
     top: 0;
     z-index: 100;
@@ -110,8 +110,13 @@ body{
 .header .persona-logo h1 {
     position: sticky;
 }
+.header .persona-logo .mini-text {
+    display: none;
+}
 
-.header .persona-logo img{
+
+
+.header .persona-logo .logo-image{
     max-width: 30px;
     width: 100%;
     height: auto;
@@ -143,34 +148,91 @@ body{
     border-radius: 10px;
     padding: 5px 10px;
     font-size:20px;
-    margin: 0px 10px;
+    margin: 0px 4px;
+}
+.header .right .button img{
+    display: none;
 }
 
 .lastfm{
     background-color: #dd5955!important;
+    border: solid 2px #dd5955;
 }
 .lastfm:hover{
     background-color: #ff7f7a!important;
+    border: solid 2px #ff7f7a;
 }
 
 .spotify{
     background-color: #1ed760!important;
+    border: solid 2px #1ed760;
 }
 
 .spotify:hover{
-    background-color: rgb(123, 239, 108, .7)!important;
+    background-color: #7bef6cb3!important;
+    border: solid 2px #7bef6cb3;
 }
 
 .steam{
     background-color: #8a90ed;
+    border: solid 2px #8a90ed;
 }
 .steam:hover{
     background-color: #8692f8;
+    border: solid 2px #8692f8;
 }
 
-@media (max-width: 1024px) {
-    
+@media (max-width:1390px) {
+    .header .right .button {
+        font-size: 0;
+        padding: 0;
+        margin: 0px 5px;
+        background: none!important;
+        border-radius: 120px;
+
+    }
+    .header .right .button img{
+        display: block;
+        max-width: 35px;
+        height: auto;
+        border-radius: 120px;
+        padding: 0;
+        margin: 0;
+    }
 }
+
+@media (max-width:850px) {
+    .header .right .spotify {
+        display: none;
+    }
+
+}
+
+@media (max-width:710px) {
+    .header .persona-logo .normal-text {
+        display: none;
+    }
+    .header .persona-logo .mini-text {
+        font-size: 15px;
+        margin-top: 8px;
+        display: block;
+    }
+}
+
+@media (max-width:650px) {
+    .header .right .lastfm {
+        display: none;
+    }
+}
+
+@media (max-width:460px) {
+    .search-bar {
+        display: none;
+    }
+}
+
+
+
 
 /* FIM HEADER */
 
@@ -246,39 +308,36 @@ body{
     float:left;
 }
 
-@media (min-width: 1024px) {
-    .inicial{
-        margin-right: 15%;
-        margin-left: 15%;
-    }
-}
+
 /* fim botões outras páginas */
 
-/* area de ajuda */
-.inicial .ajuda a{
-    font-size:20px;
-    padding: 10px;
+@media (max-width:768px) {
+    body {
+        background-color: #0f1565;
+    }
+    
+    .inicial {
+        box-sizing: border-box;
+        width: 99%;
+        margin: 0px;
+        border: none;
+        padding: 5px;
+    }
+    .content {
+        background-color: #0f1565;
+    }
 }
 
-.inicial .ajuda-oculta{
-    margin-right: 30px;
-    font-size: 18px;
-    text-align: justify;
-    display: none;
+@media (max-width:376px) {
+    .inicial .button {
+        font-size: 20px;
+        margin: 0px;
+        width: 80px;
+
+    }
+    
 }
 
-.inicial .ajuda-oculta a{
-    font-size:20px;
-    padding: 10px;
-    background-color: white;
-    border:none;
-    color:blue;
-    padding: 0px;
-}
-.inicial .ajuda-oculta a:hover{
-    background-color: white!important;
-    text-decoration: underline;
-}
 
 /* fim area de ajuda */
 /* FIM AREA INICIAL */
@@ -378,10 +437,9 @@ img{
 
 @import url('https://unpkg.com/css.gg@2.0.0/icons/css/copy.css');
 
-
 input[type=text] {
     padding: 5px 10px;
-    margin: 8px 0;
+    margin: 4px 0;
     border: solid black;
     border-radius: 10px;
     box-sizing: border-box;
@@ -420,7 +478,7 @@ input[type=range] {
     height: 19px;
     width: 19px;
     border-radius: 5px;
-    background: #050722;
+    background: white;
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -5.5px;
@@ -506,6 +564,12 @@ input[type=range] {
 .inicial button:hover{
     background-color: #8692f8;
     cursor: pointer;
+}
+
+@media (max-width:400px){
+    .ajuda {
+        font-size: 17px;
+    }
 }
 
 /* FIM CRIANDO QUIZ*/

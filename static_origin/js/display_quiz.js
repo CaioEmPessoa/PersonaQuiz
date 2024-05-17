@@ -7,7 +7,7 @@ if (data==undefined) {
     const urlParams = new URLSearchParams(queryString);
     const quiz_id = urlParams.get('id')
     
-    window.location.href = "/SteamQuiz/?id=" + quiz_id //TODO: I DON'T THINK THIS WILL WORK, CHANGE TO DJANGO REQUEST INSTED
+    window.location.href = "/SteamQuiz/?id=" + quiz_id
 }
 
 data = JSON.parse(data)
