@@ -60,7 +60,7 @@ let create_quiz = function(){
           
         } 
         if (data["status"] == "Quiz Criado!") {
-          document.getElementById("error").style.color = "lime"
+          document.getElementById("error").style.color = "#32CD32"
           let sharelink = document.getElementById("sharelink")
 
           error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"

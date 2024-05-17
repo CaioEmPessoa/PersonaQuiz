@@ -291,7 +291,7 @@ body{
 }
 
 .inicial .sharelink {
-    color: blue!important;
+    color: #4169e1!important;
     padding: 0px!important;
     display: inline!important;
 }
@@ -464,7 +464,7 @@ input[type=range] {
     height: 25px;
     -webkit-appearance: none;
     margin: 10px 0;
-    background-color: #0f1565;
+    background-color: white;
 }
 
 input[type=range] {
