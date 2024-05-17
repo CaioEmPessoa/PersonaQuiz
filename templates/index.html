@@ -4,18 +4,19 @@
 
     {% load static %}
     <h2>Bem Vindo ao PersonaQuiz - Steam!</h2>
-    <a href="read_quiz/">Iniciar um Quiz</a>
-    <a href="create_quiz/">Criar um Quiz</a>
+    <a id="startQuiz" class="button" href="#">Iniciar um Quiz</a>
+    <a class="button" href="create_quiz/">Criar um Quiz</a>
 
     <h2>Outros Quizes:</h2>
 
     <!-- <a href="#"> <img src="view/img/steam_logo.png" alt="the steam logo">Steam</a> -->
 
-    <a href="#" class="spotify"> <img src="{% static 'img/spotify_logo.png' %}" alt="the spotify logo">Spotify</a>
-    <a href="#" class="lastfm"> <img src="{% static 'img/lastfm_logo.png' %}" alt="the lastfm logo"> LastFM</a>
+    <a href="#" class="spotify button"> <img src="{% static 'img/spotify_logo.png' %}" alt="the spotify logo">Spotify</a>
+    <a href="#" class="lastfm button"> <img src="{% static 'img/lastfm_logo.png' %}" alt="the lastfm logo"> LastFM</a>
     <br><br>
     <h3> Feito por: @CaioEmPessoa</h3>
     <br>
-
+    
+    <script type="module" src="{% static 'js/read_quiz.js' %}"></script>
     
 {% endblock %}

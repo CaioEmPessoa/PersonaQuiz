@@ -209,7 +209,7 @@ body{
 
 
 
-.inicial a{
+.inicial .button{
     color: white;
     background-color: #6a78f6;
     text-decoration: none;
@@ -219,9 +219,10 @@ body{
     width: 120px;
     padding: 10px 15px;
     display: inline-block;
+    border: none;
 }
 
-.inicial a:hover {
+.inicial .button:hover {
     background-color: #8692f8;
 }
 
@@ -477,7 +478,6 @@ input[type=range] {
   }
 /* END SLIDER */
 
-
 .inicial img{
     float:initial;
     display: none;
@@ -485,7 +485,6 @@ input[type=range] {
 
 .inicial button{
     padding:7px;
-    font-size:18px;
     border-radius: 15px;
     border: solid 2px black;
     background-color: #6a78f6;
@@ -494,6 +493,7 @@ input[type=range] {
 .inicial button:hover{
     background-color: #8692f8;
 }
+
 
 /* FIM CRIANDO QUIZ*/
 

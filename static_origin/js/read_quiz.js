@@ -44,10 +44,29 @@ if(quiz_id){
     request(quiz_id)
 }
 
+
+
 let entrar = document.getElementById("entrar-criado")
-entrar.onclick = function(){
-    let quizID = document.getElementById("quiz-id").value
-    request(quizID)
+let searchBar = document.getElementById("searchBar")
+
+searchBar.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        if (searchBar === document.activeElement) {
+            let quizID = searchBar.value
+            // checking if is a url in the search bar
+            if (quizID.startsWith(API_URL.slice(0, -4))) {
+                quizID = quizID.slice(-6)
+            }
+
+            request(quizID)
+        }
+    }
+})
+
+let startQuizBtn = document.getElementById("startQuiz")
+startQuizBtn.onclick = () => {
+    searchBar.focus()
 }
+
 
 // END Get quiz >-------------------------------->
