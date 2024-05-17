@@ -229,6 +229,9 @@ body{
     .search-bar {
         display: none;
     }
+    .inicial #startQuiz {
+        display: none;
+    }
 }
 
 
@@ -330,12 +333,21 @@ body{
 
 @media (max-width:376px) {
     .inicial .button {
-        font-size: 20px;
+        font-size: 25px;
         margin: 0px;
         width: 80px;
-
     }
-    
+
+    .inicial .button[href="create_quiz/"] {
+        font-size: 12;
+        width: 200px;
+        height: 40px;
+        text-align: center;
+        vertical-align:middle;
+        line-height: 40px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 }
 
 
