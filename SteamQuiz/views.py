@@ -3,12 +3,12 @@ from django.shortcuts import render
 from .models import Quiz, Option
 import json
 
-from search_data.steam import steam_user
+from .src import user_data
 
 STYLE_PATH = "css/steam_style.css"
 ICON_PATH = "img/steam_logo.png"
 
-SteamAPI = steam_user.SteamMaker()
+SteamAPI = user_data.SteamData()
 
 
 # Create your views here.

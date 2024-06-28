@@ -1,5 +1,4 @@
-const DEBUG = false
-
+ 
 if (DEBUG == true) {
   var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
   var MAIN_URL = "http://127.0.0.1:8000/SteamQuiz/"
