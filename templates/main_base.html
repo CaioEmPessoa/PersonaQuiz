@@ -12,6 +12,10 @@
     <link id="style" rel="stylesheet" href="{% static style_path %}">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/5829/5829298.png">
 
+    <script> 
+        const DEBUG = "{{ debug }}" == "True" ? true : false
+    </script>
+
     <!-- READ_QUIZ MAIN SCRIPT -->
     <script type="module" src="{% static 'js/read_quiz.js' %}"></script>
 
@@ -34,16 +38,16 @@
         <div class="right">
             <a class="lastfm button"  href="#">
                 LastFM
-                <img src="{% static 'img/lastfm_logo.png' %}">
+                <img src="{% static 'media/lastfm_logo.png' %}">
                 
             </a>
             <a class="spotify button"  href="#"> 
                 Spotify
-                <img src="{% static 'img/spotify_logo.png' %}">
+                <img src="{% static 'media/spotify_logo.png' %}">
             </a>
             <a class="steam button" href="/SteamQuiz/">
                 Steam
-                <img src="{% static 'img/steam_logo.png' %}">
+                <img src="{% static 'media/steam_logo.png' %}">
             </a>
 
             <hr style="height: 70%; border: 1px solid white;">

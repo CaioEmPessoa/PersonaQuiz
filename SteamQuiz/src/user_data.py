@@ -15,9 +15,9 @@ class SteamData():
         super().__init__()
         # GET STEAM API KEY FROM .ENV
         KEY = config("STEAM_API_KEY")
-        self.DEBUG = False
+        self.DEBUG = config("DEBUG", cast=bool)
         self.steam = Steam(KEY)
-        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/../user_data"
+        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/user_data"
         if self.DEBUG == True:
             print("debuging")
 

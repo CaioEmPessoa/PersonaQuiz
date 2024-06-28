@@ -13,6 +13,8 @@ from pathlib import Path
 
 import os
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,11 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-rpeo&dss-f_p9&x3!4iidd=tf@+lf1exu7v5t+4477livp7cbt"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = [
     "personaquiz.onrender.com",
-    "127.0.0.1"
+    "127.0.0.1",
+    "localhost"
 ]
 
 

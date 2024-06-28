@@ -1,13 +1,15 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from .models import Quiz, Option
+
+from decouple import config
 import json
 
 from .src import user_data
 
 STYLE_PATH = "css/steam_style.css"
-ICON_PATH = "img/steam_logo.png"
-
+ICON_PATH = "media/steam_logo.png"
+DEBUG = config("DEBUG")
 SteamAPI = user_data.SteamData()
 
 
@@ -18,28 +20,32 @@ def home(request):
     return render(request, "index.html", 
                   {
                       "style_path":STYLE_PATH,
-                      "icon_path":ICON_PATH
+                      "icon_path":ICON_PATH,
+                      "debug":DEBUG
                   })
 
 def read(request, id="none"):
     return render(request, "read_quiz.html",
                   {
                       "style_path":STYLE_PATH,
-                      "icon_path":ICON_PATH
+                      "icon_path":ICON_PATH,
+                      "DEBUG":DEBUG
                   })
 
 def create(request):
     return render(request, "create_quiz.html",
                   {
                       "style_path": STYLE_PATH,
-                      "icon_path":ICON_PATH
+                      "icon_path":ICON_PATH,
+                      "debug":DEBUG
                   })
 
 def quiz(request):
     return render(request, "quiz.html",
                   {
                       "style_path": STYLE_PATH,
-                      "icon_path":ICON_PATH
+                      "icon_path":ICON_PATH,
+                      "DEBUG":DEBUG
                   })
 
 # API REQUESTS
