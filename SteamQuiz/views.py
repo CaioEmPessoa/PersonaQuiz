@@ -9,44 +9,32 @@ from .src import user_data
 
 STYLE_PATH = "css/steam_style.css"
 ICON_PATH = "media/steam_logo.png"
+APP_NAME = "steam"
 DEBUG = config("DEBUG")
-SteamAPI = user_data.SteamData()
 
+variables = {
+        "style_path":STYLE_PATH,
+        "icon_path":ICON_PATH,
+        "app_name": APP_NAME,
+        "debug":DEBUG
+}
+
+SteamAPI = user_data.SteamData()
 
 # Create your views here.
 def home(request):
     api_request = "steam"
 
-    return render(request, "index.html", 
-                  {
-                      "style_path":STYLE_PATH,
-                      "icon_path":ICON_PATH,
-                      "debug":DEBUG
-                  })
+    return render(request, "index.html", variables)
 
 def read(request, id="none"):
-    return render(request, "read_quiz.html",
-                  {
-                      "style_path":STYLE_PATH,
-                      "icon_path":ICON_PATH,
-                      "DEBUG":DEBUG
-                  })
+    return render(request, "read_quiz.html", variables)
 
 def create(request):
-    return render(request, "create_quiz.html",
-                  {
-                      "style_path": STYLE_PATH,
-                      "icon_path":ICON_PATH,
-                      "debug":DEBUG
-                  })
+    return render(request, "create_quiz.html", variables)
 
 def quiz(request):
-    return render(request, "quiz.html",
-                  {
-                      "style_path": STYLE_PATH,
-                      "icon_path":ICON_PATH,
-                      "DEBUG":DEBUG
-                  })
+    return render(request, "quiz.html", variables)
 
 # API REQUESTS
 
