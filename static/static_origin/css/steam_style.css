@@ -27,6 +27,15 @@ ACCENT = #c71f33
 
 */
 
+:root {
+    --text: #e8ebfc;
+    --background: #050722;
+    --second-background: #0f1565;
+    --primary: #8a90ed;
+    --secondary: #8c155a;
+    --accent: #e0364a;
+}
+
 html {
     height: 100%;
 }
@@ -34,10 +43,10 @@ html {
 body{
     font-family: Arial, Helvetica, sans-serif;
     margin: 0px;
-    color:#e8ebfc;
+    color:var(--text);
     height: 100%;
 
-    background-color: #050722;
+    background-color: var(--background);
 }
 
 .background-div {
@@ -74,8 +83,8 @@ body{
     height: 65px;
     margin:-10px 0px 10px 0px;
     padding-bottom:20px;
-    background-color: #050722;
-    border-bottom: solid 3px #8c155a;
+    background-color: var(--background);
+    border-bottom: solid 3px var(--secondary);
     padding: .5rem 10%;
     box-sizing: border-box;
     z-index: 1;
@@ -174,8 +183,8 @@ body{
 }
 
 .steam{
-    background-color: #8a90ed;
-    border: solid 2px #8a90ed;
+    background-color: var(--primary);
+    border: solid 2px var(--primary);
 }
 .steam:hover{
     background-color: #8692f8;
@@ -253,8 +262,8 @@ body{
 .aviso {
     border-radius: 20px;
     text-align: center;
-    background-color:#e0364a;
-    color:#e8ebfc;
+    background-color:var(--accent);
+    color:var(--text);
     padding:1px 20px;
     margin: 2% 15%;
     margin-bottom: 20px;
@@ -263,10 +272,10 @@ body{
 
 .inicial{
     border-radius: 3px;
-    border:solid 4px #8c155a;
+    border:solid 4px var(--secondary);
     padding: 10px 13%;
     text-align: center;
-    background-color:#0f1565;
+    background-color:var(--second-background);
     font-size: 20px;
     position: relative;
 }
@@ -316,7 +325,7 @@ body{
 
 @media (max-width:768px) {
     body {
-        background-color: #0f1565;
+        background-color: var(--background);
     }
     
     .inicial {
@@ -327,7 +336,7 @@ body{
         padding: 5px;
     }
     .content {
-        background-color: #0f1565;
+        background-color: var(--background);
     }
 }
 
@@ -399,7 +408,7 @@ img{
     border-radius: 10px;
     padding:10px;
     margin:15px;
-    background-color: #e0364a;
+    background-color: var(--accent);
     font-size: 20px;
     text-indent: 15px;
 }
@@ -423,7 +432,7 @@ img{
 
 .reset_answr{
     transition-property: none;
-    background-color: #e0364a;
+    background-color: var(--accent);
 }
 
 @media (max-width: 1024px) {
@@ -464,7 +473,7 @@ input[type=range] {
     height: 25px;
     -webkit-appearance: none;
     margin: 10px 0;
-    background-color: #0f1565;
+    background-color: var(--second-background);
 }
 
 input[type=range] {
