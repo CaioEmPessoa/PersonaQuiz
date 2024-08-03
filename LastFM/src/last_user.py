@@ -1,8 +1,7 @@
 import json
 import pylast
 
-# Read the user data json
-# In the future prob will change a lot
+from decouple import config
 
 class UserInfo():
 
@@ -49,11 +48,8 @@ class UserInfo():
     def __init__(self):
 
         # Log into lasfm API
-        API_KEY = "be6482f6082f20773c2fb002207e4779" 
-        API_SECRET = "c42b24fc49c680db3a8575e46a8463bb"
-
-        username = "CaioEmPessoa"
-        password_hash = pylast.md5("Churrasco_02")
+        API_KEY = config("LASTFM_API_KEY") 
+        API_SECRET = config("LAST_FM_API_SECRET") 
 
         self.network = pylast.LastFMNetwork(
             api_key=API_KEY,
@@ -61,3 +57,5 @@ class UserInfo():
             username=username,
             password_hash=password_hash,
         )
+
+UserInfo().get_user_info("CaioEmPessoa")
