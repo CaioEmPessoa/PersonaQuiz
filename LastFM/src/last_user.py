@@ -5,10 +5,11 @@ from decouple import config
 
 class UserInfo():
 
-    def get_user_info(self, username, user):
+    def get_user_info(self, username):
 
         print("Coletando informações de " + username + "...")
         
+        user = self.network.get_user(username)
 
         tracks_list = []
         artist_list = []
@@ -29,7 +30,7 @@ class UserInfo():
 #            recent_tracks.append(pylast.PlayedTrack.get_name(track.item))
 #
 
-        # Coleta todas informações do usuario kk
+        # Coleta todas informações do usuario 
 
         self.info_dict = {
             "nome":username,
@@ -44,18 +45,21 @@ class UserInfo():
 
         print("Informações coletadas!")
 
+        print(data)
 
-    def __init__(self):
+
+    def __init__(self, username):
 
         # Log into lasfm API
-        API_KEY = config("LASTFM_API_KEY") 
+        API_KEY = config("LASTFM_API_KEY")
         API_SECRET = config("LAST_FM_API_SECRET") 
 
         self.network = pylast.LastFMNetwork(
             api_key=API_KEY,
             api_secret=API_SECRET,
             username=username,
-            password_hash=password_hash,
         )
 
-UserInfo().get_user_info("CaioEmPessoa")
+        self.get_user_info(username)
+
+UserInfo("morais_")
