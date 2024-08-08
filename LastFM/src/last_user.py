@@ -7,22 +7,37 @@ class UserInfo():
 
     def get_user_info(self, username):
 
+        self.qstn_dict = {
+            "status":"undefined",
+            "qstn_count": 0,
+            "qstn_id": "undefined",
+        }
+
         print("Coletando informações de " + username + "...")
-        
         user = self.network.get_user(username)
+        
+        try:
+            print("procurando usuario..")
+            user.get_top_tracks()
+        except:
+            print("Usuário não encontrado!")
+            self.qstn_dict["status"] = "Usuário não encontrado ou sem nenhuma música reproduzida!"
+            return
+        
+        print("Usuário encontrado com sucesso! Buscando informações ...")
 
         tracks_list = []
         artist_list = []
         albuns_list = []
         recent_tracks = []
 
-        for track in user.get_top_tracks()[:5]:
+        for track in user.get_top_tracks()[:8]:
             tracks_list.append(pylast.Track.get_name(track.item))
 
-        for artist in user.get_top_artists()[:5]:
+        for artist in user.get_top_artists()[:8]:
             artist_list.append(pylast.Artist.get_name(artist.item))
 
-        for album in user.get_top_albums()[:5]:
+        for album in user.get_top_albums()[:8]:
             albuns_list.append(pylast.Album.get_name(album.item))
 
 #       Maybe do a last played track later.
@@ -62,4 +77,4 @@ class UserInfo():
 
         self.get_user_info(username)
 
-UserInfo("morais_")
+UserInfo("CaioEmPessoa")
