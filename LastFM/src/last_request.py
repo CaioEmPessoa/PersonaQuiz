@@ -1,4 +1,5 @@
 import requests
+from decouple import config
 
 class LastfmApi():
     def __init__(self, name, key):
@@ -16,13 +17,13 @@ class LastfmApi():
                 "single":"artist"
             },
             "album":{
-                "method":"gettopalbuns",
-                "name":"topalbuns",
+                "method":"getTopAlbums",
+                "name":"topalbums",
                 "single":"album"
             },
             "recent":{
                 "method":"getrecenttracks",
-                "name":"recenttracks",
+                "name":"toptracks",
                 "single":"track"
             }
         }
@@ -30,6 +31,8 @@ class LastfmApi():
         self.NAME = name
 
         self.API_KEY = key
+
+        self.DEBUG = config("DEBUG")
 
     def request(self, type, 
                 limit=10, period="7day"):
@@ -47,6 +50,9 @@ class LastfmApi():
         return requests.get("https://ws.audioscrobbler.com/2.0/", params=params)
 
     def topstats(self, type, limit=10, period="overall"):
+        
+        if self.DEBUG:
+            print("looking for", type)
 
         type = self.TYPE_DICT[type]
         name = type["name"]
@@ -56,9 +62,14 @@ class LastfmApi():
 
         stat_list = r.json()[name][single]
 
-        for stat in stat_list:
-            print(stat["name"])
-            # print(stat["image"][1]["#text"])
+        stat_list_org = [stat["name"] for stat in stat_list]
+
+        # if self.DEBUG:
+        #     for stat in stat_list:
+        #         print(stat["name"])
+        #         print(stat["image"][1]["#text"])
+
+        return stat_list_org
     
     def test_user(self):
         r = self.request("track").json()
@@ -71,6 +82,7 @@ if __name__ == "__main__":
     from decouple import config
 
     API_KEY = config("LASTFM_API_KEY")
-    api = LastfmApi("WKSJAHKWJADHJKDWAS", API_KEY)
+    api = LastfmApi("CaioEmPessoa", API_KEY)
 
-    api.topstats("track", 5, "7day")
+    re = api.topstats("recent")
+    print(re)
