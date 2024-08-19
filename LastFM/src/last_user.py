@@ -1,5 +1,4 @@
 import json
-import pylast
 import random
 
 from decouple import config
@@ -33,13 +32,13 @@ class UserInfo():
         recent_tracks = []
 
         for track in user.get_top_tracks()[:8]:
-            tracks_list.append(pylast.Track.get_name(track.item))
+            tracks_list.append("pylast.Track.get_name(track.item)")
 
         for artist in user.get_top_artists()[:8]:
-            artist_list.append(pylast.Artist.get_name(artist.item))
+            artist_list.append("pylast.Artist.get_name(artist.item)")
 
         for album in user.get_top_albums()[:8]:
-            albuns_list.append(pylast.Album.get_name(album.item))
+            albuns_list.append("pylast.Album.get_name(album.item)")
 
 
         self.info_dict = {
@@ -86,12 +85,6 @@ class UserInfo():
         # Log into lasfm API
         API_KEY = config("LASTFM_API_KEY")
         API_SECRET = config("LAST_FM_API_SECRET") 
-
-        self.network = pylast.LastFMNetwork(
-            api_key=API_KEY,
-            api_secret=API_SECRET,
-            username=username,
-        )
 
         self.get_user_info(username)
 
