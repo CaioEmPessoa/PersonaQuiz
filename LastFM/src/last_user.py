@@ -3,22 +3,30 @@ import random
 
 from decouple import config
 
+from last_request import LastfmApi
+
 class UserInfo():
 
-    def get_user_info(self, username):
+    def __init__(self, username):
+
+        # Log into lasfm API
+        API_KEY = config("LASTFM_API_KEY")
+
+        self.USERNAME = username
+
+        self.api = LastfmApi(username, API_KEY)
+
+    def get_user_info(self):
 
         self.qstn_dict = {
             "status":"undefined",
             "qstn_count": 0,
             "qstn_id": "undefined",
         }
-
-        print("Coletando informações de " + username + "...")
-        user = self.network.get_user(username)
         
         try:
             print("procurando usuario..")
-            user.get_top_tracks()
+            self.api.test_user()
         except:
             print("Usuário não encontrado!")
             self.qstn_dict["status"] = "Usuário não encontrado ou sem nenhuma música reproduzida!"
@@ -26,27 +34,17 @@ class UserInfo():
         
         print("Usuário encontrado com sucesso! Buscando informações ...")
 
-        tracks_list = []
-        artist_list = []
-        albuns_list = []
-        recent_tracks = []
-
-        for track in user.get_top_tracks()[:8]:
-            tracks_list.append("pylast.Track.get_name(track.item)")
-
-        for artist in user.get_top_artists()[:8]:
-            artist_list.append("pylast.Artist.get_name(artist.item)")
-
-        for album in user.get_top_albums()[:8]:
-            albuns_list.append("pylast.Album.get_name(album.item)")
-
+        tracks_list = self.api.topstats("track", 5)
+        artist_list = self.api.topstats("artist", 5)
+        albuns_list = self.api.topstats("album", 5)
+        recent_tracks = self.api.topstats("recent", 5)
 
         self.info_dict = {
-            "nome":username,
+            "name":self.USERNAME,
             "tracks":tracks_list, #listas
             "artists":artist_list,
             "albuns":albuns_list,
-            "ultima":recent_tracks
+            "recent":recent_tracks
         }
 
         # Just to print out the data in a better way
@@ -80,12 +78,6 @@ class UserInfo():
 
         return question, options, answer
 
-    def __init__(self, username):
 
-        # Log into lasfm API
-        API_KEY = config("LASTFM_API_KEY")
-        API_SECRET = config("LAST_FM_API_SECRET") 
 
-        self.get_user_info(username)
-
-UserInfo("CaioEmPessoa")
+UserInfo("CaioEmPessoa").get_user_info()
