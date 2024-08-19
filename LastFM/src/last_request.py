@@ -67,3 +67,10 @@ class LastfmApi():
             raise Exception("USER NOT FOUND!!")
 
 
+if __name__ == "__main__":
+    from decouple import config
+
+    API_KEY = config("LASTFM_API_KEY")
+    api = LastfmApi("WKSJAHKWJADHJKDWAS", API_KEY)
+
+    api.topstats("track", 5, "7day")
