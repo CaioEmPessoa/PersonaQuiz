@@ -4,25 +4,25 @@ import string
 import os
 from decouple import config
 
-from last_request import LastfmApi
+from .last_request import LastfmApi
 
 
 class UserInfo():
 
-    def __init__(self, username):
+    def __init__(self):
 
-        # Log into lasfm API
-        API_KEY = config("LASTFM_API_KEY")
+        self.API_KEY = config("LASTFM_API_KEY")
         self.DEBUG = config("DEBUG")
 
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/user_data"
+
+        if self.DEBUG:
+            print("Debugging.")
+
+    def get_user_info(self, username, ammount):
+
+        self.api = LastfmApi(username, self.API_KEY)
         self.USERNAME = username
-
-        self.api = LastfmApi(username, API_KEY)
-
-        self.get_user_info()
-
-    def get_user_info(self):
 
         self.qstn_dict = {
             "status":"undefined",
@@ -62,6 +62,8 @@ class UserInfo():
             print(data)
 
         self.qstn_dict["status"] = "Got Info."
+
+        return self.make_qstn(ammount)
 
     def make_qstn(self, ammount):
 
@@ -111,6 +113,7 @@ class UserInfo():
 
         self.save_quiz()
         self.qstn_dict["status"] = "Quiz Criado!"
+
         return self.qstn_dict
 
     def qstn_track(self):
@@ -158,7 +161,5 @@ class UserInfo():
             print("Perguntas Salvas!")
 
 
-
-info = UserInfo("CaioEmPessoa")
-
-info.make_qstn(10)
+if __name__ == "__main__":
+    info = UserInfo("CaioEmPessoa", 10)
