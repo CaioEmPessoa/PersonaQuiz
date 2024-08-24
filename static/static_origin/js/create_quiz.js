@@ -1,8 +1,5 @@
-if (DEBUG == true) {
-  var API_URL = "http://127.0.0.1:8000/SteamQuiz/api"
-} else if (DEBUG == false) {
-  var API_URL = "https://personaquiz.onrender.com/SteamQuiz/api"
-}
+const currentQuiz = "/" + window.location.pathname.split("/")[1]
+const apiUrl = currentQuiz + "/api"
 
 // the slider output <--------------------------------------------------<
 let slider = document.getElementById("questionSlider");
@@ -45,9 +42,9 @@ let create_quiz = function(){
     qstn_ammount = 1
   }
   
-  fetch(`${API_URL}/test`)
+  fetch(`${apiUrl}/test`)
   .then( response => {
-    fetch(`${API_URL}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
+    fetch(`${apiUrl}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
       function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Criado!"){
@@ -62,8 +59,11 @@ let create_quiz = function(){
           let sharelink = document.getElementById("sharelink")
 
           error_label.innerHTML = "Quiz feito! Você pode acessar ou compartilhar ele no seguinte link:"
-          sharelink.innerHTML = `${API_URL.slice(0, -4)}/?id=${data["qstn_id"]}`
-          sharelink.href = `${API_URL.slice(0, -4)}/?id=${data["qstn_id"]}`
+          console.log(currentQuiz)
+          console.log(apiUrl)
+          console.log("WJKHDKHJADS")
+          sharelink.innerHTML = `${window.location.origin}${apiUrl.slice(0, -4)}/?id=${data["qstn_id"]}`
+          sharelink.href = `${window.location.origin}${apiUrl.slice(0, -4)}/?id=${data["qstn_id"]}`
           
           send_button.style.display = "inline-block"
           loading.style.display = "none"
