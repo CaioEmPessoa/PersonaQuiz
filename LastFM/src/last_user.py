@@ -1,9 +1,11 @@
 import json
 import random
-
+import string
+import os
 from decouple import config
 
 from last_request import LastfmApi
+
 
 class UserInfo():
 
@@ -13,11 +15,11 @@ class UserInfo():
         API_KEY = config("LASTFM_API_KEY")
         self.DEBUG = config("DEBUG")
 
+        self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/user_data"
         self.USERNAME = username
 
         self.api = LastfmApi(username, API_KEY)
 
-        
         self.get_user_info()
 
     def get_user_info(self):
@@ -107,7 +109,7 @@ class UserInfo():
                 print("Questão feita!")
                 print(json.dumps(self.qstn_dict, indent=4))
 
-        # self.save_quiz()
+        self.save_quiz()
         self.qstn_dict["status"] = "Quiz Criado!"
         return self.qstn_dict
 
@@ -132,6 +134,28 @@ class UserInfo():
 
         return question, options, answer
 
+    # TODO: maybe change this function into a separate file to use only them in all quizess
+    def save_quiz(self):
+        # D:\Área de Trabalho do hd\estudos\.projetos\Lastfm Quiz\user_data
+        
+        # abc todo + numeros
+        options = string.ascii_lowercase + string.digits
+        link_id = ''.join(random.choice(options) for i in range(6))
+        
+        data_list = os.listdir(self.user_data_location)
+        
+        if link_id in data_list:
+            self.save_quiz()
+            return
+        
+        self.qstn_dict["qstn_id"] = link_id
+        self.qstn_dict["status"] = "Perguntas Salvas!"
+        
+        with open(f"{self.user_data_location}/{link_id}.json", "w") as save_file:
+            json.dump(self.qstn_dict, save_file, indent=4)
+
+        if self.DEBUG == True:
+            print("Perguntas Salvas!")
 
 
 
