@@ -12,7 +12,7 @@ const get_questions = function(question_id="1", replace=false){
         function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Carregado!"){
-            entrar.style.display = "inline-block"
+            // entrar.style.display = "inline-block"
             return document.getElementById("error").innerHTML = data["status"]
 
         } 
