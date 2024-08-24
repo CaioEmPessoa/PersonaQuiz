@@ -111,7 +111,11 @@ class SteamData():
         questions_list = [
             self.qstn_created, self.qstn_hours, self.qstn_old_friend, 
             self.qstn_friend_count, self.qstn_recent, self.qstn_games_by_money, self.qstn_level, 
-            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]'''
+            self.qstn_last_2weeks, self.qstn_library, self.qstn_spent_money]
+        '''
+
+        if ammount > len(questions_list):
+            ammount = len(questions_list)
 
         # questions_list = [self.qstn_spent_money]
         # A list with the itens on the list
