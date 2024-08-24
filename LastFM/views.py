@@ -5,6 +5,8 @@ from .models import Quiz, Option
 from decouple import config
 import json
 
+from .src import last_user
+
 STYLE_PATH = "css/lastfm_style.css"
 ICON_PATH = "media/lastfm_logo.png"
 APP_NAME = "lastfm"
@@ -17,6 +19,7 @@ variables = {
         "debug":DEBUG
 }
 
+fm_questions = last_user.UserInfo()
 
 # Create your views here.
 def home(request):
@@ -34,21 +37,19 @@ def quiz(request):
     return render(request, "quiz.html", variables)
 
 # STEAM API REQUESTS (can be reused)
-'''
+
 def api_test(request):
     return HttpResponse('sucesso!')
 
-
 def api_create(request, username, ammount):
-    data = SteamAPI.user_data(username, int(ammount))
+    data = fm_questions.get_user_info(username, int(ammount))
     return JsonResponse(data)
 
 def api_read(request, quiz_id):
     try:
-        with open(f"{SteamAPI.user_data_location}/{quiz_id}.json", "r") as load_file:
+        with open(f"{fm_questions.user_data_location}/{quiz_id}.json", "r") as load_file:
             data = json.load(load_file)
             data["status"] = "Quiz Carregado!"
             return JsonResponse(data)
     except:
         return(JsonResponse({"status":"Esse quiz não existe! Verifique seu código."}))
-'''
