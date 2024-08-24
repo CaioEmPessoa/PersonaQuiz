@@ -15,6 +15,8 @@ class UserInfo():
         self.USERNAME = username
 
         self.api = LastfmApi(username, API_KEY)
+        
+        self.get_user_info()
 
     def get_user_info(self):
 
@@ -56,28 +58,33 @@ class UserInfo():
 
     def qstn_track(self):
         question = f"Qual a música mais ouvida de {self.info_dict['name']}? "
-        options = self.info_dict["tracks"][4]
+        options = self.info_dict["tracks"]
         answer = options[0]
-        options = random.shuffle(self.info_dict["tracks"][4])
+        
+        random.shuffle(self.info_dict["tracks"])
 
         return question, options, answer
     
-    def qstn_track(self):
+    def qstn_artist(self):
         question = f"Qual o artista mais ouvido de {self.info_dict['name']}? "
-        options = self.info_dict["artists"][4]
+        options = self.info_dict["artists"]
         answer = options[0]
-        options = random.shuffle(self.info_dict["artists"][4])
+        
+        random.shuffle(self.info_dict["artists"])
 
         return question, options, answer
     
-    def qstn_track(self):
+    def qstn_album(self):
         question = f"Qual o álbum mais ouvido de {self.info_dict['name']}? "
-        options = self.info_dict["albuns"][4]
+        options = self.info_dict["albuns"]
         answer = options[0]
-        options = random.shuffle(self.info_dict["albuns"][4])
+
+        random.shuffle(options)
 
         return question, options, answer
 
 
 
-UserInfo("CaioEmPessoa").get_user_info()
+info = UserInfo("CaioEmPessoa")
+
+print(info.qstn_album())
