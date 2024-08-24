@@ -17,6 +17,7 @@ variables = {
         "debug":DEBUG
 }
 
+
 # Create your views here.
 def home(request):
     api_request = "steam"
