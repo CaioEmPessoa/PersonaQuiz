@@ -40,10 +40,10 @@ class UserInfo():
         
         print("Usuário encontrado com sucesso! Buscando informações ...")
 
-        tracks_list = self.api.topstats("track", 5)
-        artist_list = self.api.topstats("artist", 5)
-        albuns_list = self.api.topstats("album", 5)
-        recent_tracks = self.api.topstats("recent", 5)
+        tracks_list = self.api.topstats("track", 4)
+        artist_list = self.api.topstats("artist", 4)
+        albuns_list = self.api.topstats("album", 4)
+        recent_tracks = self.api.topstats("recent", 4)
 
         self.info_dict = {
             "name":self.USERNAME,
@@ -163,3 +163,7 @@ class UserInfo():
 
 if __name__ == "__main__":
     info = UserInfo("CaioEmPessoa", 10)
+
+
+
+# TODO: ONLY REQUEST 4 OF THE TRACK (SONG ARTIST ETC)
