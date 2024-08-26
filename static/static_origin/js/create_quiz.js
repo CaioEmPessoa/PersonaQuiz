@@ -14,6 +14,14 @@ slider.oninput = function() {
 }
 // >----------------------------------------------------> END SLIDER
 
+let periodSelector = document.getElementById("period")
+
+if (periodSelector != null) {
+  periodSelector.oninput = function() {
+    period = this.value
+  }
+}
+
 // START json data <------------------------------------------------------------------------------<
 let send_button = document.getElementById("enviar");
 let loading = document.getElementById("loading")
