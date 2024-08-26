@@ -13,6 +13,13 @@ class UserInfo():
         self.API_KEY = config("LASTFM_API_KEY")
         self.DEBUG = config("DEBUG")
 
+        self.PERIOD_TRANS = {
+            "7day":" sete dias",
+            "1month":" um mês",
+            "12month":" um ano",
+            "overall":"sde o começo"
+        }
+
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/user_data"
 
         if self.DEBUG:
@@ -103,8 +110,8 @@ class UserInfo():
         return self.qstn_dict
 
     def qstn_track(self):
-        question = f"Qual a música mais ouvida de {self.USERNAME}? "
         period = self.get_period()
+        question = f"Qual a música mais ouvida de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         options = self.api.topstats("track", 4, period)
 
         answer = options[0]
@@ -112,16 +119,16 @@ class UserInfo():
         return question, options, answer, period
     
     def qstn_artist(self):
-        question = f"Qual o artista mais ouvido de {self.USERNAME}? "
         period = self.get_period()
+        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         options = self.api.topstats("artist", 4, period)
         answer = options[0]
 
         return question, options, answer, period
     
     def qstn_album(self):
-        question = f"Qual o álbum mais ouvido de {self.USERNAME}? "
         period = self.get_period()
+        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         options = self.api.topstats("album", 4, period)
         answer = options[0]
 
