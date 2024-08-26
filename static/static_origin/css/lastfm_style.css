@@ -273,7 +273,7 @@ body{
 .inicial{
     border-radius: 3px;
     border:solid 4px var(--secondary);
-    padding: 10px 13%;
+    padding: 10px 15%;
     text-align: center;
     background-color:var(--second-background);
     font-size: 20px;
@@ -563,6 +563,23 @@ input[type=range] {
     background: var(--accent);
   }
 /* END SLIDER */
+
+.questions * {
+    margin: 13px 0px;
+}
+
+.select {
+    display: inline-block;
+    text-align: center;
+    background-color: var(--accent);
+    border: 0;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.inline {
+    margin: 0px;
+}
 
 .inicial img{
     float:initial;

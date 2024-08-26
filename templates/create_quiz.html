@@ -11,27 +11,52 @@
     </div>
 
     <div class="username">
-        <p>Cole aqui o link do seu perfil:</p>
-        <input type="text", id="usernameEntry", style="width: 70%;">
+        <p>
+        {% if app_name == "lastfm" %}
+            Digite seu nome:
+        {% endif %}
+        {% if app_name == "steam" %}
+            Cole o link do seu perfil:
+        {% endif %}
+        </p>
+
+        
+        <input type="text", id="usernameEntry", style="width: 100%;">
     </div>
     
     <div class="questions">
+
+        
+        {% if app_name == "lastfm" %}
+        <p>Qual o período?</p>
+        <select name="period" id="period" class="select">
+            <option value="7days">7 Dias</option>
+            <option value="30days">30 Dias</option>
+            <option value="overall">Todo Período</option>
+            <option value="mix">Misto</option>
+        </select>
+        <br>
+        {% endif %} 
+        
         <p>Quantas Perguntas?</p>
         <input class="inline" id="questionSlider" type="range" min="0" max="10" value="5">
         <p class="inline" id="sliderOutput">0</p>
     </div>
     
+
     <img id="loading" class="loading" src="{% static 'media/loading.gif' %}">
     <button id="enviar" class="enviar {{ app_name }}">Enviar Informações</button>
     
     <hr style="border: solid black 1px; margin-top: 30px;">
     <div class="ajuda">
-        <p style="font-size: 18px;">Aviso: Seu perfil precisa ter os seguintes requerimentos:
+        {% if app_name == "steam" %}
+        <p style="font-size: 18px;">Aviso: Seu perfil precisa ter os seguintes requerimentos: </p>
             <ul>
                 <li>Ter TODOS seus dados públicos. </li>
                 <li>Gasto mais de 5 doláres na steam; </li>
                 <li>Ter comprado de 4 jogos; </li>
             </ul>
+        {% endif %} 
         </div>
     </div>
     

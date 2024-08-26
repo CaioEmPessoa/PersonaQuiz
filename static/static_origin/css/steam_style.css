@@ -564,6 +564,22 @@ input[type=range] {
   }
 /* END SLIDER */
 
+.questions * {
+    margin: 13px 0px;
+}
+
+.select {
+    display: inline-block;
+    text-align: center;
+    background-color: var(--accent);
+    border: 0;
+    font-size: 20px;
+}
+
+.inline {
+    margin: 0px;
+}
+
 .inicial img{
     float:initial;
     display: none;
