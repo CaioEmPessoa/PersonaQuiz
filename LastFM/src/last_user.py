@@ -6,7 +6,6 @@ from decouple import config
 
 from .last_request import LastfmApi
 
-
 class UserInfo():
 
     def __init__(self):
@@ -19,17 +18,23 @@ class UserInfo():
         if self.DEBUG:
             print("Debugging.")
 
-    def get_user_info(self, username, ammount):
+    def get_period(self):
+        period = self.period
+        if self.period == "mixed":
+            period = random.choice(["7day", "1month", "12month", "overall"])
+        return period
+
+    def get_user_info(self, username, ammount, period):
 
         self.api = LastfmApi(username, self.API_KEY)
         self.USERNAME = username
-
+        self.period = period
         self.qstn_dict = {
             "status":"undefined",
             "qstn_count": 0,
             "qstn_id": "undefined",
         }
-        
+
         try:
             print("procurando usuario..")
             self.api.test_user()
@@ -38,30 +43,9 @@ class UserInfo():
             self.qstn_dict["status"] = "Usuário não encontrado ou sem nenhuma música reproduzida!"
             return
         
-        print("Usuário encontrado com sucesso! Buscando informações ...")
-
-        tracks_list = self.api.topstats("track", 4)
-        artist_list = self.api.topstats("artist", 4)
-        albuns_list = self.api.topstats("album", 4)
-        recent_tracks = self.api.topstats("recent", 4)
-
-        self.info_dict = {
-            "name":self.USERNAME,
-            "tracks":tracks_list, #listas
-            "artists":artist_list,
-            "albuns":albuns_list,
-            "recent":recent_tracks
-        }
-
-        # Just to print out the data in a better way
-        data = json.dumps(self.info_dict, indent=4)
-
-        print("Informações coletadas!")
-
-        if self.DEBUG:
-            print(data)
-
-        self.qstn_dict["status"] = "Got Info."
+        print("Usuário encontrado com sucesso!")
+        
+        self.qstn_dict["status"] = "User Found."
 
         return self.make_qstn(ammount)
 
@@ -86,7 +70,7 @@ class UserInfo():
             can_choose.remove(choosed)
 
             # Opens the function and gets the returned values
-            question, options, answer = questions_list[choosed]()
+            question, options, answer, period = questions_list[choosed]()
 
             # Shuffles the options of the quiz
             random.shuffle(options)
@@ -100,6 +84,7 @@ class UserInfo():
                     "question": question,
                     "options": options,
                     "answer": answer,
+                    "period": period,
                 },
             }
 
@@ -109,6 +94,7 @@ class UserInfo():
             # prints and returns the result
             if self.DEBUG:
                 print("Questão feita!")
+                print(self.period)
                 print(json.dumps(self.qstn_dict, indent=4))
 
         self.save_quiz()
@@ -117,25 +103,29 @@ class UserInfo():
         return self.qstn_dict
 
     def qstn_track(self):
-        question = f"Qual a música mais ouvida de {self.info_dict['name']}? "
-        options = self.info_dict["tracks"]
+        question = f"Qual a música mais ouvida de {self.USERNAME}? "
+        period = self.get_period()
+        options = self.api.topstats("track", 4, period)
+
         answer = options[0]
 
-        return question, options, answer
+        return question, options, answer, period
     
     def qstn_artist(self):
-        question = f"Qual o artista mais ouvido de {self.info_dict['name']}? "
-        options = self.info_dict["artists"]
+        question = f"Qual o artista mais ouvido de {self.USERNAME}? "
+        period = self.get_period()
+        options = self.api.topstats("artist", 4, period)
         answer = options[0]
 
-        return question, options, answer
+        return question, options, answer, period
     
     def qstn_album(self):
-        question = f"Qual o álbum mais ouvido de {self.info_dict['name']}? "
-        options = self.info_dict["albuns"]
+        question = f"Qual o álbum mais ouvido de {self.USERNAME}? "
+        period = self.get_period()
+        options = self.api.topstats("album", 4, period)
         answer = options[0]
 
-        return question, options, answer
+        return question, options, answer, period
 
     # TODO: maybe change this function into a separate file to use only them in all quizess
     def save_quiz(self):

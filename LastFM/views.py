@@ -41,8 +41,8 @@ def quiz(request):
 def api_test(request):
     return HttpResponse('sucesso!')
 
-def api_create(request, username, ammount):
-    data = fm_questions.get_user_info(username, int(ammount))
+def api_create(request, username, ammount, period):
+    data = fm_questions.get_user_info(username, int(ammount), period)
     return JsonResponse(data)
 
 def api_read(request, quiz_id):

@@ -11,6 +11,6 @@ urlpatterns = [
     
     # backend
     path("api/test/", views.api_test, name="api_test"),
-    path("api/create/<username>/<ammount>", views.api_create, name="api_create"), # TODO: switch / with param
+    path("api/create/<username>/<ammount>/<period>", views.api_create, name="api_create"), # TODO: switch / with param
     path("api/read/<quiz_id>/", views.api_read, name="api_read")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
