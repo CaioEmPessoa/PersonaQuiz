@@ -60,7 +60,8 @@ class UserInfo():
 
         # Lista de todas funções que fazem as perguntas
         questions_list = [
-            self.qstn_album, self.qstn_artist, self.qstn_track
+            self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
+            self.qstn_f_loved, self.qstn_l_loved
             ]
         
         if ammount > len(questions_list):
@@ -118,6 +119,30 @@ class UserInfo():
 
         return question, options, answer, period
     
+    def qstn_f_loved(self):
+        question = f"Qual a primeira música amada por {self.USERNAME}?"
+        options = self.api.laststats("loved", 4)
+
+        answer = options[0]
+
+        return question, options, answer
+    
+    def qstn_l_loved(self):
+        question = f"Qual a útlima música amada por {self.USERNAME}?"
+        options = self.api.topstats("loved", 4)
+
+        answer = options[0]
+
+        return question, options, answer
+
+    def qstn_recent(self):
+        question = f"Qual a última música (na data de criacao do quiz) ouvida por {self.USERNAME}?"
+        options = self.api.topstats("recent", 4)
+        
+        answer = options[0]
+
+        return question, options, answer, "null"
+
     def qstn_artist(self):
         period = self.get_period()
         question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
