@@ -23,7 +23,12 @@ class LastfmApi():
             },
             "recent":{
                 "method":"getrecenttracks",
-                "name":"toptracks",
+                "name":"recenttracks",
+                "single":"track"
+            },
+            "loved":{
+                "method":"getLovedTracks",
+                "name":"lovedtracks",
                 "single":"track"
             }
         }
@@ -34,7 +39,7 @@ class LastfmApi():
 
         self.DEBUG = config("DEBUG")
 
-    def request(self, type, 
+    def request(self, type, page=1,
                 limit=10, period="7day"):
 
         type = self.TYPE_DICT[type]
@@ -44,6 +49,7 @@ class LastfmApi():
                 "user":self.NAME,
                 "limit":limit,
                 "period":period,
+                "page": page,
                 "api_key":self.API_KEY}
 
 
@@ -54,11 +60,10 @@ class LastfmApi():
         if self.DEBUG:
             print("looking for", type)
 
-        type = self.TYPE_DICT[type]
-        name = type["name"]
-        single = type["single"]
+        name = self.TYPE_DICT[type]["name"]
+        single = self.TYPE_DICT[type]["single"]
 
-        r = self.request(single, limit, period)
+        r = self.request(type, limit, period)
 
         stat_list = r.json()[name][single]
 
@@ -82,7 +87,7 @@ if __name__ == "__main__":
     from decouple import config
 
     API_KEY = config("LASTFM_API_KEY")
-    api = LastfmApi("CaioEmPessoa", API_KEY)
+    api = LastfmApi("Joansus", API_KEY)
 
-    re = api.topstats("recent")
+    re = api.topstats("loved")
     print(re)
