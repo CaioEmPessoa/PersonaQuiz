@@ -58,23 +58,40 @@ class LastfmApi():
     def topstats(self, type, limit=10, period="overall"):
         
         if self.DEBUG:
-            print("looking for", type)
+            print("looking for top", type)
 
         name = self.TYPE_DICT[type]["name"]
         single = self.TYPE_DICT[type]["single"]
 
-        r = self.request(type, limit, period)
+        r = self.request(type=type, limit=limit, period=period)
 
         stat_list = r.json()[name][single]
 
         stat_list_org = [stat["name"] for stat in stat_list]
 
-        # if self.DEBUG:
-        #     for stat in stat_list:
-        #         print(stat["name"])
-        #         print(stat["image"][1]["#text"])
+        return stat_list_org
+
+    def laststats(self, type, limit=10, page=1, period="overall"):
+        if self.DEBUG:
+            print("looking for last", type)
+
+        name = self.TYPE_DICT[type]["name"]
+        single = self.TYPE_DICT[type]["single"]
+
+        first_r = self.request(type=type, limit=limit, page=page, period=period)
+
+        page = first_r.json()[name]["@attr"]["totalPages"] # go to last page
+        last_limit = first_r.json()[name]["@attr"]["perPage"] # get the limit of the page to get the last item in it
+
+        last_r = self.request(type=type, limit=last_limit, page=page, period=period)
+
+        stat_list = last_r.json()[name][single]
+
+        stat_list_org = [stat["name"] for stat in stat_list]
+        stat_list_org[limit:] # cuts the list to the limit requested
 
         return stat_list_org
+
     
     def test_user(self):
         r = self.request("track").json()
@@ -87,7 +104,7 @@ if __name__ == "__main__":
     from decouple import config
 
     API_KEY = config("LASTFM_API_KEY")
-    api = LastfmApi("Joansus", API_KEY)
+    api = LastfmApi("caioempessoa", API_KEY)
 
-    re = api.topstats("loved")
+    re = api.laststats("recent", limit=10)
     print(re)
