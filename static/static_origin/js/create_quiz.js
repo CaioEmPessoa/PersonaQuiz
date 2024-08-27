@@ -14,14 +14,6 @@ slider.oninput = function() {
 }
 // >----------------------------------------------------> END SLIDER
 
-let periodSelector = document.getElementById("period")
-
-if (periodSelector != null) {
-  periodSelector.oninput = function() {
-    period = this.value
-  }
-}
-
 // START json data <------------------------------------------------------------------------------<
 let send_button = document.getElementById("enviar");
 let loading = document.getElementById("loading")
@@ -52,7 +44,7 @@ let create_quiz = function(){
   
   fetch(`${apiUrl}/test`)
   .then( response => {
-    fetch(`${apiUrl}/create/${nameEntry}/${qstn_ammount}`).then(response => response.json()).then(
+    fetch(`${apiUrl}/create/${nameEntry}/${qstn_ammount}/${document.getElementById("period").value}`).then(response => response.json()).then(
       function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Criado!"){
@@ -61,7 +53,7 @@ let create_quiz = function(){
           document.getElementById("error").innerHTML = data["status"]
           return
           
-        } 
+        }
         if (data["status"] == "Quiz Criado!") {
           document.getElementById("error").style.color = "#32CD32"
           let sharelink = document.getElementById("sharelink")
