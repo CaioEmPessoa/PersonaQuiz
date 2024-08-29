@@ -4,7 +4,7 @@ import string
 import os
 from decouple import config
 
-from .last_request import LastfmApi
+from last_request import LastfmApi
 
 class UserInfo():
 
@@ -60,9 +60,12 @@ class UserInfo():
 
         # Lista de todas funções que fazem as perguntas
         questions_list = [
-            self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
-            self.qstn_f_loved, self.qstn_l_loved
+            self.qstn_favfromart
             ]
+        '''questions_list = [
+            self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
+            self.qstn_f_loved, self.qstn_l_loved, self.qstn_favfromart
+            ]'''
         
         if ammount > len(questions_list):
             ammount = len(questions_list)
@@ -144,20 +147,59 @@ class UserInfo():
         return question, options, answer, "null"
 
     def qstn_artist(self):
-        period = self.get_period()
         question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        period = self.get_period()
         options = self.api.topstats("artist", 4, period)
         answer = options[0]
 
         return question, options, answer, period
     
     def qstn_album(self):
-        period = self.get_period()
         question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        period = self.get_period()
         options = self.api.topstats("album", 4, period)
         answer = options[0]
 
         return question, options, answer, period
+
+    def qstn_fav_track_fromart(self):
+        top_tracks_full = self.api.topstats(type="track", limit=10, full=True)
+        top_tracks = [(track["name"], track["artist"]["name"]) for track in top_tracks_full]
+        
+        chosen_artist = random.choice(top_tracks)[1]
+
+        options = []
+
+        for track in top_tracks:
+            if chosen_artist in track and len(options) == 0:
+                answer = track[0]
+                options.append(track[0])
+            elif chosen_artist in track and len(options) <= 3:
+                options.append(track[0])
+        
+        # if didn't found 4 tracks from artist on top 10 try to find in the top 50
+        if len(options) <= 4:
+            all_top_tracks_full = self.api.topstats(type="track", limit=50, full=True)
+            for track in all_top_tracks_full:
+                if track["artist"]["name"] == chosen_artist and track["name"] not in options:
+                    options.append(track["name"])
+                if len(options) >= 4:
+                    break
+
+        # if still didn't find 4 tracks on top50, grabs random tracks from the artist.
+        if len(options) <= 4:
+            # TODO: this function
+            pass
+
+        print(options)
+
+        question = f"Qual musica que {self.USERNAME} mais gosta de {chosen_artist}? "
+        return question, options, answer, "null"
+
+    def qstn_fav_album_fromart(self):
+        # TODO; this function, copy of above but for albuns insted of tracks.
+        pass
+
 
     # TODO: maybe change this function into a separate file to use only them in all quizess
     def save_quiz(self):
@@ -184,7 +226,9 @@ class UserInfo():
 
 
 if __name__ == "__main__":
-    info = UserInfo("CaioEmPessoa", 10)
+    info = UserInfo()
+    info.get_user_info("caioempessoa", int(1), "overall")
+    info.qstn_favfromart()
 
 
 

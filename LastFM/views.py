@@ -36,8 +36,6 @@ def create(request):
 def quiz(request):
     return render(request, "quiz.html", variables)
 
-# STEAM API REQUESTS (can be reused)
-
 def api_test(request):
     return HttpResponse('sucesso!')
 
