@@ -55,7 +55,7 @@ class LastfmApi():
 
         return requests.get("https://ws.audioscrobbler.com/2.0/", params=params)
 
-    def topstats(self, type, limit=10, period="overall"):
+    def topstats(self, type, limit=10, period="overall", full=False):
         
         if self.DEBUG:
             print("looking for top", type)
@@ -69,7 +69,10 @@ class LastfmApi():
 
         stat_list_org = [stat["name"] for stat in stat_list]
 
-        return stat_list_org
+        if full == False:
+            return stat_list_org
+        else:
+            return stat_list
 
     def laststats(self, type, limit=10, page=1, period="overall"):
         if self.DEBUG:
