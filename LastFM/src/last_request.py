@@ -95,6 +95,9 @@ class LastfmApi():
 
         return stat_list_org
 
+    def artiststats(self, name):
+        # TODO: request and retrieve data from specific artist, like top tracks/albuns etc...
+        pass
     
     def test_user(self):
         r = self.request("track").json()
