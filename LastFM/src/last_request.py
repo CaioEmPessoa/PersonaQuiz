@@ -1,5 +1,6 @@
 import requests
 from decouple import config
+from functools import lru_cache
 
 class LastfmApi():
     def __init__(self, name, key):
@@ -55,6 +56,7 @@ class LastfmApi():
 
         return requests.get("https://ws.audioscrobbler.com/2.0/", params=params)
 
+    @lru_cache
     def topstats(self, type, limit=10, period="overall", full=False):
         
         if self.DEBUG:
@@ -65,7 +67,11 @@ class LastfmApi():
 
         r = self.request(type=type, limit=limit, period=period)
 
+        if r.json()[name]["@attr"]["total"] == "0":
+            return []
+
         stat_list = r.json()[name][single]
+
 
         stat_list_org = [stat["name"] for stat in stat_list]
 
@@ -74,6 +80,7 @@ class LastfmApi():
         else:
             return stat_list
 
+    @lru_cache
     def laststats(self, type, limit=10, page=1, period="overall"):
         if self.DEBUG:
             print("looking for last", type)
@@ -82,6 +89,9 @@ class LastfmApi():
         single = self.TYPE_DICT[type]["single"]
 
         first_r = self.request(type=type, limit=limit, page=page, period=period)
+
+        if first_r.json()[name]["@attr"]["total"] == "0":
+            return []
 
         page = first_r.json()[name]["@attr"]["totalPages"] # go to last page
         last_limit = first_r.json()[name]["@attr"]["perPage"] # get the limit of the page to get the last item in it

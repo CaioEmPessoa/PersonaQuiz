@@ -4,7 +4,7 @@ import string
 import os
 from decouple import config
 
-from last_request import LastfmApi
+from .last_request import LastfmApi
 
 class UserInfo():
 
@@ -60,13 +60,14 @@ class UserInfo():
 
         # Lista de todas funções que fazem as perguntas
         questions_list = [
-            self.qstn_favfromart
-            ]
-        '''questions_list = [
             self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
-            self.qstn_f_loved, self.qstn_l_loved, self.qstn_favfromart
-            ]'''
+            self.qstn_f_loved, self.qstn_l_loved, self.qstn_fav_track_fromart
+            ]
         
+        if self.api.laststats("loved") == []:
+            questions_list.remove(self.qstn_f_loved)
+            questions_list.remove(self.qstn_l_loved)
+
         if ammount > len(questions_list):
             ammount = len(questions_list)
 
@@ -115,55 +116,56 @@ class UserInfo():
 
     def qstn_track(self):
         period = self.get_period()
-        question = f"Qual a música mais ouvida de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         options = self.api.topstats("track", 4, period)
 
         answer = options[0]
 
+        question = f"Qual a música mais ouvida de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         return question, options, answer, period
     
     def qstn_f_loved(self):
-        question = f"Qual a primeira música amada por {self.USERNAME}?"
         options = self.api.laststats("loved", 4)
 
         answer = options[0]
 
+        question = f"Qual a primeira música amada por {self.USERNAME}?"
         return question, options, answer
     
     def qstn_l_loved(self):
-        question = f"Qual a útlima música amada por {self.USERNAME}?"
         options = self.api.topstats("loved", 4)
 
         answer = options[0]
 
+        question = f"Qual a útlima música amada por {self.USERNAME}?"
         return question, options, answer
 
     def qstn_recent(self):
-        question = f"Qual a última música (na data de criacao do quiz) ouvida por {self.USERNAME}?"
         options = self.api.topstats("recent", 4)
         
         answer = options[0]
 
+        question = f"Qual a última música (na data de criacao do quiz) ouvida por {self.USERNAME}?"
         return question, options, answer, "null"
 
     def qstn_artist(self):
-        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         period = self.get_period()
         options = self.api.topstats("artist", 4, period)
         answer = options[0]
 
+        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         return question, options, answer, period
     
     def qstn_album(self):
-        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         period = self.get_period()
         options = self.api.topstats("album", 4, period)
         answer = options[0]
 
+        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         return question, options, answer, period
 
     def qstn_fav_track_fromart(self):
-        top_tracks_full = self.api.topstats(type="track", limit=10, full=True)
+        period = self.get_period()
+        top_tracks_full = self.api.topstats(type="track", period=period, limit=10, full=True)
         top_tracks = [(track["name"], track["artist"]["name"]) for track in top_tracks_full]
         
         chosen_artist = random.choice(top_tracks)[1]
@@ -179,7 +181,7 @@ class UserInfo():
         
         # if didn't found 4 tracks from artist on top 10 try to find in the top 50
         if len(options) <= 4:
-            all_top_tracks_full = self.api.topstats(type="track", limit=50, full=True)
+            all_top_tracks_full = self.api.topstats(type="track", period=period, limit=50, full=True)
             for track in all_top_tracks_full:
                 if track["artist"]["name"] == chosen_artist and track["name"] not in options:
                     options.append(track["name"])
