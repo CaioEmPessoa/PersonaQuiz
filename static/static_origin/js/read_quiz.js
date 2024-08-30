@@ -64,6 +64,7 @@ if(current_path.indexOf("/quiz/") === -1){
     let startQuizBtn = document.getElementById("startQuiz")
     startQuizBtn.onclick = () => {
         searchBar.focus()
+        get_questions(quiz_id, true)
     }
     
     if (quiz_id != null) {

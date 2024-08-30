@@ -41,10 +41,15 @@ let create_quiz = function(){
   if (qstn_ammount==0){
     qstn_ammount = 1
   }
+
+  var r_url = `${apiUrl}/create/${nameEntry}/${qstn_ammount}/`
+  if (currentQuiz == "/LastfmQuiz") {
+    r_url += document.getElementById("period").value
+  }
   
   fetch(`${apiUrl}/test`)
   .then( response => {
-    fetch(`${apiUrl}/create/${nameEntry}/${qstn_ammount}/${document.getElementById("period").value}`).then(response => response.json()).then(
+    fetch(r_url).then(response => response.json()).then(
       function(data){
         // se o data retornar um erro, ele mostra o erro.
         if(data["status"] != "Quiz Criado!"){
