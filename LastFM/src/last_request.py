@@ -8,12 +8,12 @@ class LastfmApi():
 
         self.TYPE_DICT = {
             "track":{
-                "method":"gettoptracks",
+                "method":"getTopTracks",
                 "name":"toptracks",
                 "single":"track"
             },
             "artist":{
-                "method":"gettopartists",
+                "method":"getTopArtists",
                 "name":"topartists",
                 "single":"artist"
             },
@@ -23,7 +23,7 @@ class LastfmApi():
                 "single":"album"
             },
             "recent":{
-                "method":"getrecenttracks",
+                "method":"getRecentTracks",
                 "name":"recenttracks",
                 "single":"track"
             },
@@ -57,13 +57,15 @@ class LastfmApi():
             params["user"] = self.NAME
             params["method"] = f"user.{type["method"]}"
 
+        if self.DEBUG:
+            print("request params:", params)
         return requests.get("https://ws.audioscrobbler.com/2.0/", params=params)
 
     @lru_cache
-    def topstats(self, type, artist=False, limit=10, period="overall", full=False):
+    def topstats(self, type, limit=10, artist=False, period="overall", full=False):
         
         if self.DEBUG:
-            print("looking for top", type)
+            print("request: top", type)
 
         name = self.TYPE_DICT[type]["name"]
         single = self.TYPE_DICT[type]["single"]
@@ -85,7 +87,7 @@ class LastfmApi():
     @lru_cache
     def laststats(self, type, limit=10, page=1, period="overall", artist=False):
         if self.DEBUG:
-            print("looking for last", type)
+            print("request: last", type)
 
         name = self.TYPE_DICT[type]["name"]
         single = self.TYPE_DICT[type]["single"]
