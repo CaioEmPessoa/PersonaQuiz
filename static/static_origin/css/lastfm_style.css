@@ -415,7 +415,7 @@ img{
 
 .perguntas p:hover{
     cursor: pointer;
-    border: solid 3px var(--accent);
+    border: solid 3px var(--secondary);
 } 
 
 .wrong_answr{
