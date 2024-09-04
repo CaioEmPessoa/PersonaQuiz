@@ -389,7 +389,7 @@ body{
     padding-right: 20px;
     padding-left: 20px;
     border-radius: 10px;
-    background-color: #6a78f6;
+    background-color: var(--accent);
 }
 
 .imagem-pergunta{
@@ -408,14 +408,14 @@ img{
     border-radius: 10px;
     padding:10px;
     margin:15px;
-    background-color: var(--accent);
+    background-color: var(--background);
     font-size: 20px;
     text-indent: 15px;
 }
 
 .perguntas p:hover{
     cursor: pointer;
-    background-color: #e76272;
+    border: solid 3px var(--accent);
 } 
 
 .wrong_answr{
@@ -432,7 +432,7 @@ img{
 
 .reset_answr{
     transition-property: none;
-    background-color: var(--accent);
+    background-color: var(--background);
 }
 
 @media (max-width: 1024px) {
