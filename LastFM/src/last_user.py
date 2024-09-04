@@ -82,6 +82,7 @@ class UserInfo():
             can_choose.remove(choosed)
 
             # Opens the function and gets the returned values
+            # TODO: make a dict of only one var and stop the need to return 'null' period for all other functions
             question, options, answer, period = questions_list[choosed]()
 
             # Shuffles the options of the quiz
@@ -124,20 +125,21 @@ class UserInfo():
         return question, options, answer, period
     
     def qstn_f_loved(self):
-        options = self.api.laststats("loved", 4)
+                                            # idk why but it just bugs when asking for limit of 4 on this function 
+        options = self.api.laststats(type="loved", limit=5)[:4]
 
         answer = options[0]
 
         question = f"Qual a primeira música amada por {self.USERNAME}?"
-        return question, options, answer
+        return question, options, answer, "null"
     
     def qstn_l_loved(self):
-        options = self.api.topstats("loved", 4)
+        options = self.api.topstats(type="loved", limit=4)
 
         answer = options[0]
 
         question = f"Qual a útlima música amada por {self.USERNAME}?"
-        return question, options, answer
+        return question, options, answer, "null"
 
     def qstn_recent(self):
         options = self.api.topstats("recent", 4)
@@ -263,8 +265,12 @@ class UserInfo():
 
 if __name__ == "__main__":
     info = UserInfo()
-    info.get_user_info("caioempessoa", int(1), "overall")
-    info.qstn_favfromart()
+    info.get_user_info("morais_", int(1), "overall")
+    f = info.qstn_f_loved()
+    l = info.qstn_l_loved()
+
+    print(f)
+    print(l)
 
 
 
