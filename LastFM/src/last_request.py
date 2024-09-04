@@ -105,6 +105,8 @@ class LastfmApi():
         stat_list_org = [stat["name"] for stat in stat_list]
         stat_list_org[limit:] # cuts the list to the limit requested
 
+        stat_list_org.reverse()
+
         return stat_list_org
     
     def test_user(self):
@@ -118,7 +120,7 @@ if __name__ == "__main__":
     from decouple import config
 
     API_KEY = config("LASTFM_API_KEY")
-    api = LastfmApi("caioempessoa", API_KEY)
+    api = LastfmApi("joansus", API_KEY)
 
-    re = api.topstats("track", limit=10, artist="gorillaz")
+    re = api.laststats("loved", limit=5)[:4]
     print(re)
