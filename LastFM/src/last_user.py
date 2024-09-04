@@ -61,8 +61,14 @@ class UserInfo():
         # Lista de todas funções que fazem as perguntas
         questions_list = [
             self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
-            self.qstn_f_loved, self.qstn_l_loved, self.qstn_fav_track_fromart
+            self.qstn_f_loved, self.qstn_l_loved, self.qstn_fav_track_fromart, self.qstn_fav_album_fromart
             ]
+        
+        # TODO: smth like this
+        # if self.period == "mixed":
+        #     repeatable = [
+        #         self.qstn_album, self.qstn_artist, self.qstn_track
+        #     ]
         
         if self.api.laststats("loved") == []:
             questions_list.remove(self.qstn_f_loved)
