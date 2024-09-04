@@ -78,6 +78,8 @@ class UserInfo():
             # chooses a random value in can_choose to use it as a index for the questions_list
             choosed = random.choice(can_choose)
 
+            if self.DEBUG:
+                print("attempting:", questions_list[choosed].__name__)
             # remove the already choosed item of the list
             can_choose.remove(choosed)
 
@@ -117,7 +119,7 @@ class UserInfo():
 
     def qstn_track(self):
         period = self.get_period()
-        options = self.api.topstats("track", 4, period)
+        options = self.api.topstats(type="track", limit=4, period=period)
 
         answer = options[0]
 
@@ -142,7 +144,7 @@ class UserInfo():
         return question, options, answer, "null"
 
     def qstn_recent(self):
-        options = self.api.topstats("recent", 4)
+        options = self.api.topstats(type="recent", limit=4)
         
         answer = options[0]
 
@@ -151,7 +153,7 @@ class UserInfo():
 
     def qstn_artist(self):
         period = self.get_period()
-        options = self.api.topstats("artist", 4, period)
+        options = self.api.topstats(type="artist", limit=4, period=period)
         answer = options[0]
 
         question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
@@ -159,7 +161,7 @@ class UserInfo():
     
     def qstn_album(self):
         period = self.get_period()
-        options = self.api.topstats("album", 4, period)
+        options = self.api.topstats(type="album", limit=4, period=period)
         answer = options[0]
 
         question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
