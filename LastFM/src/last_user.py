@@ -189,9 +189,8 @@ class UserInfo():
                     break
 
         # if still didn't find 4 tracks on top50, grabs random tracks from the artist.
-        if len(options) <= 4:
-            # TODO: this function
-            pass
+        while len(options) <= 4:
+            options.append(random.choice(self.api.topstats(type="track", period=period, artist=chosen_artist)))
 
         print(options)
 
@@ -199,8 +198,43 @@ class UserInfo():
         return question, options, answer, "null"
 
     def qstn_fav_album_fromart(self):
-        # TODO; this function, copy of above but for albuns insted of tracks.
-        pass
+        # this is just copy-paste from function above, could improove to be just one but I find it well organized like this.
+        period = self.get_period()
+        top_albuns_full = self.api.topstats(type="album", period=period, limit=10, full=True)
+        top_albuns = [(album["name"], album["artist"]["name"]) for album in top_albuns_full]
+        
+        chosen_artist = random.choice(top_albuns)[1]
+
+        options = []
+
+        for album in top_albuns:
+            if chosen_artist in album and len(options) == 0:
+                answer = album[0]
+                options.append(album[0])
+            elif chosen_artist in album and len(options) <= 3:
+                options.append(album[0])
+        
+        # if didn't found 4 albuns from artist on top 10 try to find in the top 50
+        if len(options) <= 4:
+            all_top_albuns_full = self.api.topstats(type="album", period=period, limit=50, full=True)
+            for album in all_top_albuns_full:
+                if album["artist"]["name"] == chosen_artist and album["name"] not in options:
+                    options.append(album["name"])
+                if len(options) >= 4:
+                    break
+
+        # if still didn't find 4 albubs on top50, grabs random albuns from the artist.
+        while len(options) <= 4:
+            options.append(random.choice(self.api.topstats(type="album", period=period, artist=chosen_artist)))
+
+        print(options)
+
+        question = f"Qual album que {self.USERNAME} mais gosta de {chosen_artist}? "
+
+        if self.DEBUG == True:
+            print(question, "\n", options)
+
+        return question, options, answer, "null"
 
 
     # TODO: maybe change this function into a separate file to use only them in all quizess
