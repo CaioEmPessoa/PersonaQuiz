@@ -314,7 +314,7 @@ body{
 
 /* Botões para outras páginas */
 .inicial img{
-    max-width: 40px;
+    max-width: 50px;
     height: auto;
     margin-right: 10px;
     float:left;

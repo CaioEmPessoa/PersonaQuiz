@@ -4,14 +4,18 @@
 
     {% load static %}
     
-    <h2>Bem Vindo ao PersonaQuiz - {{ app_name }}!</h2>
+    <h2>Bem Vindo ao PersonaQuiz:</h2>
+        <h1 style="display: flex; justify-content: center;">
+            <img src="/static/{{ icon_path }}" alt="The {{ app_name }} logo." style="display: block;">
+            {{ app_name }}
+        </h1>
     <a id="startQuiz" class="button {{ app_name }}" href="#">Iniciar um Quiz</a>
     <a class="button {{ app_name }}" href="create_quiz/">Criar um Quiz</a>
 
     <h2>Outros Quizes:</h2>
 
-    <a href="#" class="steam button"> <img src="{% static 'media/steam_logo.png' %}" alt="the steam logo">Steam</a>
-    <a href="#" class="spotify button"> <img src="{% static 'media/spotify_logo.png' %}" alt="the spotify logo">Spotify</a>
+    <a href="/SteamQuiz/" class="steam button"> <img src="{% static 'media/steam_logo.png' %}" alt="the steam logo">Steam</a>
+    <!-- <a href="#" class="spotify button"> <img src="{% static 'media/spotify_logo.png' %}" alt="the spotify logo">Spotify</a> -->
     <a href="/LastfmQuiz/" class="lastfm button"> <img src="{% static 'media/lastfm_logo.png' %}" alt="the lastfm logo"> LastFM</a>
     <br><br>
     <h3> Feito por: @CaioEmPessoa</h3>

@@ -9,7 +9,7 @@ from .src import user_data
 
 STYLE_PATH = "css/steam_style.css"
 ICON_PATH = "media/steam_logo.png"
-APP_NAME = "steam"
+APP_NAME = "Steam"
 DEBUG = config("DEBUG")
 
 variables = {

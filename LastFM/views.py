@@ -9,7 +9,7 @@ from .src import last_user
 
 STYLE_PATH = "css/lastfm_style.css"
 ICON_PATH = "media/lastfm_logo.png"
-APP_NAME = "lastfm"
+APP_NAME = "LastFM"
 DEBUG = config("DEBUG")
 
 variables = {
