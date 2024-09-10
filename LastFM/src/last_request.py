@@ -31,6 +31,10 @@ class LastfmApi():
                 "method":"getLovedTracks",
                 "name":"lovedtracks",
                 "single":"track"
+            },
+            "info": {
+                "method":"getinfo",
+                "name":"user"
             }
         }
 
@@ -70,19 +74,19 @@ class LastfmApi():
         name = self.TYPE_DICT[type]["name"]
         single = self.TYPE_DICT[type]["single"]
 
-        r = self.request(type=type, limit=limit, period=period, artist=artist)
+        r = self.request(type=type, limit=limit, period=period, artist=artist).json()
 
-        if r.json()[name]["@attr"]["total"] == "0":
+        if r[name]["@attr"]["total"] == "0":
             return []
 
-        stat_list = r.json()[name][single]
+        stat_list = r[name][single]
 
         stat_list_org = [stat["name"] for stat in stat_list]
 
         if full == False:
             return stat_list_org
         else:
-            return stat_list
+            return {"stat":stat_list, "ammount":r[name]["@attr"]["total"]}
 
     @lru_cache
     def laststats(self, type, limit=10, page=1, period="overall", artist=False):
@@ -112,10 +116,12 @@ class LastfmApi():
         return stat_list_org
     
     def test_user(self):
-        r = self.request("track").json()
+        r = self.request("info").json()
 
         if "error" in r:
             raise Exception("USER NOT FOUND!!")
+        
+        return r
 
 
 if __name__ == "__main__":
@@ -124,5 +130,5 @@ if __name__ == "__main__":
     API_KEY = config("LASTFM_API_KEY")
     api = LastfmApi("joansus", API_KEY)
 
-    re = api.laststats("loved", limit=5)[:4]
+    re = api.test_user()
     print(re)
