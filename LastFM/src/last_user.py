@@ -57,10 +57,10 @@ class UserInfo():
         return self.make_qstn(ammount)
 
     def make_qstn(self, ammount):
-
         # Lista de todas funções que fazem as perguntas
         questions_list = [
             self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
+            self.qstn_scrobble_ammount, self.qstn_track_ammount, self.qstn_artist_ammount, self.qstn_album_ammount,
             self.qstn_f_loved, self.qstn_l_loved, self.qstn_fav_track_fromart, self.qstn_fav_album_fromart
             ]
         
@@ -132,6 +132,65 @@ class UserInfo():
         question = f"Qual a música mais ouvida de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
         return question, options, answer, period
     
+    def qstn_artist(self):
+        period = self.get_period()
+        options = self.api.topstats(type="artist", limit=4, period=period)
+        answer = options[0]
+
+        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        return question, options, answer, period
+    
+    def qstn_album(self):
+        period = self.get_period()
+        options = self.api.topstats(type="album", limit=4, period=period)
+        answer = options[0]
+
+        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        return question, options, answer, period
+    
+    def round_tree(self, numb:int):
+        s_len = 10**(len(str(numb))-3) # numb lenght, how decimals will be saved from int
+        numb = round(numb/s_len)*s_len
+        return numb
+
+    def stat_ammount(self, stat, question):
+        s_ammount = int(self.api.test_user()["user"][stat])
+        print(s_ammount)
+        s_ammount = self.round_tree(s_ammount)
+        
+        s_range = list(range(round(s_ammount/1.5), round(s_ammount*1.5))) # range of questions
+        
+        options = [s_ammount]
+
+        for i in range(3):
+            rand_opt = random.choice(s_range)
+            rand_opt = self.round_tree(rand_opt)
+
+            if rand_opt == s_ammount:
+                rand_opt = 20 # funny
+                
+            options.append(rand_opt)
+
+        answer = options[0]
+
+        return question, options, answer, "null"
+
+    def qstn_scrobble_ammount(self):
+        question = f"Quantos scrobbles {self.USERNAME} possui? (arredondado)"
+        return self.stat_ammount("playcount", question)
+
+    def qstn_track_ammount(self):
+        question = f"Quantas músicas {self.USERNAME} já ouviu? (arredondado)"
+        return self.stat_ammount("track_count", question)
+
+    def qstn_artist_ammount(self):
+        question = f"Quantos artistas {self.USERNAME} já ouviu? (arredondado)"
+        return self.stat_ammount("artist_count", question)
+
+    def qstn_album_ammount(self):
+        question = f"Quantos albúns {self.USERNAME} já ouviu? (arredondado)"
+        return self.stat_ammount("album_count", question)
+
     def qstn_f_loved(self):
                                             # idk why but it just bugs when asking for limit of 4 on this function 
         options = self.api.laststats(type="loved", limit=5)[:4]
@@ -157,25 +216,10 @@ class UserInfo():
         question = f"Qual a última música (na data de criacao do quiz) ouvida por {self.USERNAME}?"
         return question, options, answer, "null"
 
-    def qstn_artist(self):
-        period = self.get_period()
-        options = self.api.topstats(type="artist", limit=4, period=period)
-        answer = options[0]
-
-        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
-        return question, options, answer, period
-    
-    def qstn_album(self):
-        period = self.get_period()
-        options = self.api.topstats(type="album", limit=4, period=period)
-        answer = options[0]
-
-        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
-        return question, options, answer, period
-
+    # TODO: REUSABLE QUESTION
     def qstn_fav_track_fromart(self):
         period = self.get_period()
-        top_tracks_full = self.api.topstats(type="track", period=period, limit=10, full=True)
+        top_tracks_full = self.api.topstats(type="track", period=period, limit=10, full=True)["stat"]
         top_tracks = [(track["name"], track["artist"]["name"]) for track in top_tracks_full]
         
         chosen_artist = random.choice(top_tracks)[1]
@@ -191,7 +235,7 @@ class UserInfo():
         
         # if didn't found 4 tracks from artist on top 10 try to find in the top 50
         if len(options) <= 4:
-            all_top_tracks_full = self.api.topstats(type="track", period=period, limit=50, full=True)
+            all_top_tracks_full = self.api.topstats(type="track", period=period, limit=50, full=True)["stat"]
             for track in all_top_tracks_full:
                 if track["artist"]["name"] == chosen_artist and track["name"] not in options:
                     options.append(track["name"])
@@ -207,10 +251,11 @@ class UserInfo():
         question = f"Qual musica que {self.USERNAME} mais gosta de {chosen_artist}? "
         return question, options, answer, "null"
 
+    # TODO: REUSABLE QUESTION
     def qstn_fav_album_fromart(self):
         # this is just copy-paste from function above, could improove to be just one but I find it well organized like this.
         period = self.get_period()
-        top_albuns_full = self.api.topstats(type="album", period=period, limit=10, full=True)
+        top_albuns_full = self.api.topstats(type="album", period=period, limit=10, full=True)["stat"]
         top_albuns = [(album["name"], album["artist"]["name"]) for album in top_albuns_full]
         
         chosen_artist = random.choice(top_albuns)[1]
@@ -226,7 +271,7 @@ class UserInfo():
         
         # if didn't found 4 albuns from artist on top 10 try to find in the top 50
         if len(options) <= 4:
-            all_top_albuns_full = self.api.topstats(type="album", period=period, limit=50, full=True)
+            all_top_albuns_full = self.api.topstats(type="album", period=period, limit=50, full=True)["stat"]
             for album in all_top_albuns_full:
                 if album["artist"]["name"] == chosen_artist and album["name"] not in options:
                     options.append(album["name"])
@@ -273,12 +318,10 @@ class UserInfo():
 
 if __name__ == "__main__":
     info = UserInfo()
-    info.get_user_info("morais_", int(1), "overall")
-    f = info.qstn_f_loved()
-    l = info.qstn_l_loved()
+    info.get_user_info("caioempessoa", int(0), "overall")
+    ss = info.qstn_scrobble_ammount()
 
-    print(f)
-    print(l)
+    print(sg)
 
 
 
