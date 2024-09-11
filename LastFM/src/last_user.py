@@ -14,10 +14,10 @@ class UserInfo():
         self.DEBUG = config("DEBUG")
 
         self.PERIOD_TRANS = {
-            "7day":" sete dias",
-            "1month":" um mês",
-            "12month":" um ano",
-            "overall":"sde o começo"
+            "7day":"nos últimos sete dias",
+            "1month":"no último mês",
+            "12month":"no último ano",
+            "overall":"no total"
         }
 
         self.user_data_location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__))) + "/user_data"
@@ -54,6 +54,10 @@ class UserInfo():
         
         self.qstn_dict["status"] = "User Found."
 
+        # list of questions already made with x artist
+        # so they are 'reusable' with diff artists
+        self.chosen_favs = {}
+
         return self.make_qstn(ammount)
 
     def make_qstn(self, ammount):
@@ -61,7 +65,9 @@ class UserInfo():
         questions_list = [
             self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
             self.qstn_scrobble_ammount, self.qstn_track_ammount, self.qstn_artist_ammount, self.qstn_album_ammount,
-            self.qstn_f_loved, self.qstn_l_loved, self.qstn_fav_track_fromart, self.qstn_fav_album_fromart
+            self.qstn_f_loved, self.qstn_l_loved, 
+            self.qstn_fav_track_from, self.qstn_fav_track_from, self.qstn_fav_track_from,
+            self.qstn_fav_album_from, self.qstn_fav_album_from, self.qstn_fav_album_from
             ]
         
         # TODO: smth like this
@@ -80,7 +86,7 @@ class UserInfo():
         # A list with the itens on the list
         can_choose = list(range(len(questions_list)))
 
-        for question in range(ammount):
+        while ammount >= 1:
             # chooses a random value in can_choose to use it as a index for the questions_list
             choosed = random.choice(can_choose)
 
@@ -92,6 +98,9 @@ class UserInfo():
             # Opens the function and gets the returned values
             # TODO: make a dict of only one var and stop the need to return 'null' period for all other functions
             question, options, answer, period = questions_list[choosed]()
+
+            if question == "":
+                continue
 
             # Shuffles the options of the quiz
             random.shuffle(options)
@@ -117,6 +126,8 @@ class UserInfo():
                 print("Questão feita!")
                 print(self.period)
                 print(json.dumps(self.qstn_dict, indent=4))
+            
+            ammount-=1
 
         self.save_quiz()
         self.qstn_dict["status"] = "Quiz Criado!"
@@ -129,7 +140,8 @@ class UserInfo():
 
         answer = options[0]
 
-        question = f"Qual a música mais ouvida de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        question = f"Qual a música mais ouvida de {self.USERNAME} {self.PERIOD_TRANS[period]}? "
+
         return question, options, answer, period
     
     def qstn_artist(self):
@@ -137,7 +149,8 @@ class UserInfo():
         options = self.api.topstats(type="artist", limit=4, period=period)
         answer = options[0]
 
-        question = f"Qual o artista mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        question = f"Qual o artista mais ouvido de {self.USERNAME} {self.PERIOD_TRANS[period]}? "
+
         return question, options, answer, period
     
     def qstn_album(self):
@@ -145,7 +158,10 @@ class UserInfo():
         options = self.api.topstats(type="album", limit=4, period=period)
         answer = options[0]
 
-        question = f"Qual o álbum mais ouvido de {self.USERNAME} no período de{self.PERIOD_TRANS[period]}? "
+        question = f"Qual o álbum mais ouvido de {self.USERNAME} {self.PERIOD_TRANS[period]}? "
+
+        if period == "overall":
+            question = f"Qual o álbum mais ouvido de {self.USERNAME} no total? "
         return question, options, answer, period
     
     def round_tree(self, numb:int):
@@ -216,16 +232,31 @@ class UserInfo():
         question = f"Qual a última música (na data de criacao do quiz) ouvida por {self.USERNAME}?"
         return question, options, answer, "null"
 
-    # TODO: REUSABLE QUESTION
-    def qstn_fav_track_fromart(self):
+    def fav_stat_fromart(self, fav_type, question):
         period = self.get_period()
-        top_tracks_full = self.api.topstats(type="track", period=period, limit=10, full=True)["stat"]
-        top_tracks = [(track["name"], track["artist"]["name"]) for track in top_tracks_full]
+
+        ## GETTING THE ARTIST NAMES
+        # IF NOT CREATED, CREATES A DICT WITH ALL TOP ARTISTS FROM GOTTEN PERIOD
+        if self.chosen_favs == {} or period not in self.chosen_favs or fav_type not in self.chosen_favs[period]:
+            top_tracks_full = self.api.topstats(type=fav_type, period=period, limit=10, full=True)["stat"]
+            top_tracks = [(track["name"], track["artist"]["name"]) for track in top_tracks_full]
+            artist_list = list(set([track[1] for track in top_tracks]))
+            
+            self.chosen_favs[period] = {"artists" : artist_list, fav_type:top_tracks}
         
-        chosen_artist = random.choice(top_tracks)[1]
+        # IF CREATED GETS ITS INFO
+        else:
+            top_tracks = self.chosen_favs[period][fav_type]
+            artist_list = self.chosen_favs[period]["artists"]
+        
+        if self.chosen_favs[period]["artists"] != []:
+            chosen_artist = random.choice(artist_list)
+            self.chosen_favs[period]["artists"].remove(chosen_artist)
+        else:
+            return "" "" "" ""    
 
+        ## GETS ARTIST FAVE TRACKS
         options = []
-
         for track in top_tracks:
             if chosen_artist in track and len(options) == 0:
                 answer = track[0]
@@ -245,51 +276,18 @@ class UserInfo():
         # if still didn't find 4 tracks on top50, grabs random tracks from the artist.
         while len(options) <= 4:
             options.append(random.choice(self.api.topstats(type="track", period=period, artist=chosen_artist)))
-
-        print(options)
-
-        question = f"Qual musica que {self.USERNAME} mais gosta de {chosen_artist}? "
+        self.chosen_favs[period][fav_type].append(chosen_artist)
+        question += chosen_artist + " " + self.PERIOD_TRANS[period] + "?"
         return question, options, answer, "null"
 
-    # TODO: REUSABLE QUESTION
-    def qstn_fav_album_fromart(self):
-        # this is just copy-paste from function above, could improove to be just one but I find it well organized like this.
-        period = self.get_period()
-        top_albuns_full = self.api.topstats(type="album", period=period, limit=10, full=True)["stat"]
-        top_albuns = [(album["name"], album["artist"]["name"]) for album in top_albuns_full]
-        
-        chosen_artist = random.choice(top_albuns)[1]
+    def qstn_fav_track_from(self):
+        question = f"Qual musica que {self.USERNAME} mais ouviu de "
+        return self.fav_stat_fromart("track", question)
 
-        options = []
 
-        for album in top_albuns:
-            if chosen_artist in album and len(options) == 0:
-                answer = album[0]
-                options.append(album[0])
-            elif chosen_artist in album and len(options) <= 3:
-                options.append(album[0])
-        
-        # if didn't found 4 albuns from artist on top 10 try to find in the top 50
-        if len(options) <= 4:
-            all_top_albuns_full = self.api.topstats(type="album", period=period, limit=50, full=True)["stat"]
-            for album in all_top_albuns_full:
-                if album["artist"]["name"] == chosen_artist and album["name"] not in options:
-                    options.append(album["name"])
-                if len(options) >= 4:
-                    break
-
-        # if still didn't find 4 albubs on top50, grabs random albuns from the artist.
-        while len(options) <= 4:
-            options.append(random.choice(self.api.topstats(type="album", period=period, artist=chosen_artist)))
-
-        print(options)
-
-        question = f"Qual album que {self.USERNAME} mais gosta de {chosen_artist}? "
-
-        if self.DEBUG == True:
-            print(question, "\n", options)
-
-        return question, options, answer, "null"
+    def qstn_fav_album_from(self):
+        question = f"Qual album que {self.USERNAME} mais ouviu de "
+        return self.fav_stat_fromart("album", question)
 
 
     # TODO: maybe change this function into a separate file to use only them in all quizess
@@ -319,9 +317,16 @@ class UserInfo():
 if __name__ == "__main__":
     info = UserInfo()
     info.get_user_info("caioempessoa", int(0), "overall")
-    ss = info.qstn_scrobble_ammount()
 
-    print(sg)
+    output = []
+
+    for i in range(5):
+        output.append(info.qstn_fav_track_from())
+        output.append(info.qstn_fav_album_from())
+
+    print("\n\n\n\n#####OUTPUT######\n")
+    for i in output:
+        print(i)
 
 
 

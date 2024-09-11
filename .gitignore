@@ -7,5 +7,5 @@ src/static_dstn
 settings.py
 LastQuiz/
 *migrations/
-user_data/
 static/static_dstn/*
+runserver.bat
