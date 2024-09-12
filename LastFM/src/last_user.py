@@ -63,7 +63,7 @@ class UserInfo():
     def make_qstn(self, ammount):
         # Lista de todas funções que fazem as perguntas
         questions_list = [
-            self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_recent, 
+            self.qstn_album, self.qstn_artist, self.qstn_track, self.qstn_last_track, 
             self.qstn_scrobble_ammount, self.qstn_track_ammount, self.qstn_artist_ammount, self.qstn_album_ammount,
             self.qstn_f_loved, self.qstn_l_loved, 
             self.qstn_fav_track_from, self.qstn_fav_track_from, self.qstn_fav_track_from,
@@ -75,6 +75,10 @@ class UserInfo():
         #     repeatable = [
         #         self.qstn_album, self.qstn_artist, self.qstn_track
         #     ]
+        
+        s = self.fav_stat_fromart("track", "")
+
+
         
         if self.api.laststats("loved") == []:
             questions_list.remove(self.qstn_f_loved)
@@ -164,6 +168,7 @@ class UserInfo():
             question = f"Qual o álbum mais ouvido de {self.USERNAME} no total? "
         return question, options, answer, period
     
+    # not used anymore but just in case ..
     def round_tree(self, numb:int):
         s_len = 10**(len(str(numb))-3) # numb lenght, how decimals will be saved from int
         numb = round(numb/s_len)*s_len
@@ -172,7 +177,6 @@ class UserInfo():
     def stat_ammount(self, stat, question):
         s_ammount = int(self.api.test_user()["user"][stat])
         print(s_ammount)
-        s_ammount = self.round_tree(s_ammount)
         
         s_range = list(range(round(s_ammount/1.5), round(s_ammount*1.5))) # range of questions
         
@@ -180,7 +184,6 @@ class UserInfo():
 
         for i in range(3):
             rand_opt = random.choice(s_range)
-            rand_opt = self.round_tree(rand_opt)
 
             if rand_opt == s_ammount:
                 rand_opt = 20 # funny
@@ -192,19 +195,19 @@ class UserInfo():
         return question, options, answer, "null"
 
     def qstn_scrobble_ammount(self):
-        question = f"Quantos scrobbles {self.USERNAME} possui? (arredondado)"
+        question = f"Quantos scrobbles {self.USERNAME} possui?"
         return self.stat_ammount("playcount", question)
 
     def qstn_track_ammount(self):
-        question = f"Quantas músicas {self.USERNAME} já ouviu? (arredondado)"
+        question = f"Quantas músicas {self.USERNAME} já ouviu?"
         return self.stat_ammount("track_count", question)
 
     def qstn_artist_ammount(self):
-        question = f"Quantos artistas {self.USERNAME} já ouviu? (arredondado)"
+        question = f"Quantos artistas {self.USERNAME} já ouviu?"
         return self.stat_ammount("artist_count", question)
 
     def qstn_album_ammount(self):
-        question = f"Quantos albúns {self.USERNAME} já ouviu? (arredondado)"
+        question = f"Quantos albúns {self.USERNAME} já ouviu?"
         return self.stat_ammount("album_count", question)
 
     def qstn_f_loved(self):
@@ -224,8 +227,8 @@ class UserInfo():
         question = f"Qual a útlima música amada por {self.USERNAME}?"
         return question, options, answer, "null"
 
-    def qstn_recent(self):
-        options = self.api.topstats(type="recent", limit=4)
+    def qstn_last_track(self):
+        options = self.api.topstats(type="recent", limit=5)[:4]
         
         answer = options[0]
 
@@ -265,7 +268,7 @@ class UserInfo():
                 options.append(track[0])
         
         # if didn't found 4 tracks from artist on top 10 try to find in the top 50
-        if len(options) <= 4:
+        if len(options) < 4:
             all_top_tracks_full = self.api.topstats(type="track", period=period, limit=50, full=True)["stat"]
             for track in all_top_tracks_full:
                 if track["artist"]["name"] == chosen_artist and track["name"] not in options:
@@ -274,7 +277,7 @@ class UserInfo():
                     break
 
         # if still didn't find 4 tracks on top50, grabs random tracks from the artist.
-        while len(options) <= 4:
+        while len(options) < 4:
             options.append(random.choice(self.api.topstats(type="track", period=period, artist=chosen_artist)))
         self.chosen_favs[period][fav_type].append(chosen_artist)
         question += chosen_artist + " " + self.PERIOD_TRANS[period] + "?"
