@@ -188,6 +188,7 @@ body{
         margin-top: 8px;
         display: block;
     }
+    
 }
 
 @media (max-width:650px) {
@@ -293,7 +294,7 @@ body{
 
 @media (max-width:768px) {
     body {
-        background-color: var(--background);
+        background-color: var(--second-background);
     }
     
     .inicial {
@@ -302,9 +303,6 @@ body{
         margin: 0px;
         border: none;
         padding: 5px;
-    }
-    .content {
-        background-color: var(--background);
     }
 }
 
@@ -585,5 +583,6 @@ input[type=range] {
 .area-pergunta {
     background-color: white;
 }
+
 
 /* FIM AREA DO QUIZ */
