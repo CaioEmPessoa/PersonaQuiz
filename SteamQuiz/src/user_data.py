@@ -405,6 +405,11 @@ class SteamData():
         oldest_friends = []
         for friend in self.friends:
             oldest_friends.append([friend["friend_since"], friend["personaname"]])
+        
+        if len(self.friends) < 4:
+            fake_friends = ["Chuck Norris", "Barak Obama", "O Lula", "Steve Minecraft", "Frisk Undertale"]
+            while len(self.friends) != 4:
+                self.friends.append(random.choice(fake_friends))
 
         oldest_friends.sort()
         oldest_friends = oldest_friends[:4]
