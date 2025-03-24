@@ -5,11 +5,14 @@ A website that makes quizes about your online persona based on the websites you 
 
 
 ## What it does?
-For now it only makes quizes about Steam profiles, but I'll work hard to make an LastFM and Spotify too, and I could add more websites if asked.
+It can makes a quiz about your Steam and LastFM profiles, in the future is intended to have support for Spotify too!
 * The site is entirely on portuguease, and english support is one of my top priorities.
 
 ## How it does?
-Well for know this part will be about the Steam quiz, the one that's ready.
+### Lastfm Quiz:
+Just write your LastFM username on the page for creating a quiz and click on "create". You can also paste the full url for you profile if you want to.
+
+### Steam Quiz:
 You just click on "create a quiz" and paste the link to your steam profile. To get it, you can go to your profile on the Steam app and copy the link that stays up in the page: 
 (mine is just 'CaioEmPessoa' bc you can custom one for you, but your's probably is just some random characters)
 
